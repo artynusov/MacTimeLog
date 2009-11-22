@@ -24,7 +24,8 @@ class Statistics(object):
         days = (self._toDate - self._fromDate).days
         self._avgWork = int(self.timings.spentSeconds / days)
         self._avgSlacking = int(self.timings.slackingSeconds / days)
-        self._maxValue = max(res)
+        if res:
+            self._maxValue = max(res)
         
     def _countObject(self, objType, targetAction):
         """Generic function for calculating projects data or slacking statistics"""
@@ -47,8 +48,9 @@ class Statistics(object):
                     res[objKey] = spentSeconds
                 else:
                     res[objKey] += spentSeconds
+                    
+        self._countAttrib(res.values())
         if res:
-            self._countAttrib(res.values())
             return sorted(res.iteritems(), key=lambda item:item[1], reverse=True)
         else:
             return []
@@ -82,8 +84,8 @@ class Statistics(object):
                     res[projectName][task] = spentSeconds
                 else:
                     res[projectName][task] += spentSeconds
+        self._countAttrib([v for k in res for v in res[k].values()])
         if res:
-            self._countAttrib([v for k in res for v in res[k].values()])
             ret = {}
             for k in res.keys():
                 ret[k] = sorted(res[k].iteritems(), key=lambda item:item[1], reverse=True)
