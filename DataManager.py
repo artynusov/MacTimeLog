@@ -14,6 +14,7 @@ class _DataManager(object):
     def writeTask(self, data, task, projectName, firstToday=False):
         if firstToday:
             task = Settings.get("startPlaceholder")
+            projectName = None
         self._driver.writeTask(data, task, projectName)
         
     def getAfterDate(self, date1):

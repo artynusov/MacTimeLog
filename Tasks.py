@@ -31,7 +31,7 @@ class Tasks(object):
             projectName = None
             
         attributes = self.processTask(date, task, projectName)
-        DataManager.writeTask(date, task, projectName, firstToday=len(self.tasks) == 0)
+        DataManager.writeTask(date, task, projectName, firstToday=len(self.tasks) == 1)
         return attributes
         
     def setCurrentTask(self, task):
