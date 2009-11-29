@@ -82,6 +82,9 @@ class ReportController(NSObject):
         self.lblSlackTotal.setStringValue_(stat.totalSlacking)
         self.lblAvgSlack.setStringValue_(stat.avgSlacking)
         self.graphView.setNeedsDisplay_(True)
+
+    def windowDidBecomeMain_(self, sender):
+        self.generateChart()
         
     @objc.IBAction  
     def customMenu_(self, sender):

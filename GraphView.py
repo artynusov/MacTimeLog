@@ -35,6 +35,9 @@ class GraphView(NSView):
         self.scrollView = sv
         
     def setData(self, rawData, dataType):
+        pt = NSMakePoint(0.0, 0.0)
+        self.scrollView.documentView().scrollPoint_(pt)
+        
         data = []
         
         oliveGradient = ((0.90,0.92,0.85, 1.0), (0.81,0.83,0.76, 1.0))
@@ -62,12 +65,13 @@ class GraphView(NSView):
         self._convFunction = conv
         
     def drawRect_(self, rect):
+        
         width = self.frame().size.width
         height = self.frame().size.height
         
-        self._fillBackground(width, height)
-        
         chart = CocoaHorizontalBarChart(width, self._scale)
+        
+        self._fillBackground(width, height)
         
         if self._convFunction:
             chart.setConversionFunction(self._convFunction)
@@ -82,7 +86,6 @@ class GraphView(NSView):
         elif self.scrollView:
             b = self.scrollView.frame()
             self.setFrame_(NSMakeRect(b.origin.x, b.origin.y, b.size.width-20, b.size.height-10))
-            
         self.setNeedsDisplay_(True)
 
         
