@@ -61,8 +61,8 @@ class MainController(NSObject):
         self.initWindowStates()
         self.readCounters()
         self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"), 
-                      self, self.timerFunction, None, True)
-                      
+                              self, self.timerFunction, None, True)
+                              
     def initControls(self):
         """Init basic controls"""
         self.outputArea.setString_("")
@@ -93,6 +93,8 @@ class MainController(NSObject):
         """Timer callback function"""
         self.tasks.setCurrentTask(self.cbxInput.stringValue())
         self.readCounters()
+        if self.tasks.timings.isNextDay():
+            self.initControls()
         
     def readCounters(self):
         """Read counters"""

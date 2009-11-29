@@ -15,7 +15,10 @@ class Timings(object):
     _slacking = 0
     _prevDate = None
     _taskType = None
-        
+    
+    def __init__(self):
+        self._startDateTime = self.workStartDateTime()
+    
     @property
     def spentSeconds(self):
         """Return time, spent on work"""
@@ -103,7 +106,14 @@ class Timings(object):
                 self._spent += currSpentSeconds
             self._prevDate = date
             return currSpentSeconds
-                
+    
+    def isNextDay(self):
+        """Return true if program next working day started"""
+        if self._startDateTime + datetime.timedelta(days=1) < self.now():
+            return True
+        else:
+            return False
+        
 if __name__ == '__main__':
     t = Timings()
 
