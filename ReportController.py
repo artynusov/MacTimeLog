@@ -9,7 +9,7 @@ import objc
 from Foundation import *
 from Settings import Settings
 from Statistics import Statistics
-from FormatterHelpers import secToTimeStr, nsDateToDatetime, SecondsToTimeFormatter
+from FormatterHelpers import secToTimeStr, nsDateToDatetime
 from Timings import Timings
 
 class ReportController(NSObject):
@@ -43,12 +43,6 @@ class ReportController(NSObject):
     reportType = "tasks"
 
     def awakeFromNib(self):
-        timeFormatter = SecondsToTimeFormatter.alloc().init()
-        
-        self.lblWorkTotal.setFormatter_(timeFormatter)
-        self.lblAvgWork.setFormatter_(timeFormatter)
-        self.lblSlackTotal.setFormatter_(timeFormatter)
-        self.lblAvgSlack.setFormatter_(timeFormatter)
         
         self.graphView.setConversionFunction(secToTimeStr)
         self.generateChart()
@@ -77,10 +71,10 @@ class ReportController(NSObject):
             self.graphView.setData(stat.countSlacking(), self.reportType) 
     
         self.graphView.setScale(stat.maxValue)
-        self.lblWorkTotal.setStringValue_(stat.totalWork)
-        self.lblAvgWork.setStringValue_(stat.avgWork)
-        self.lblSlackTotal.setStringValue_(stat.totalSlacking)
-        self.lblAvgSlack.setStringValue_(stat.avgSlacking)
+        self.lblWorkTotal.setStringValue_(secToTimeStr(stat.totalWork))
+        self.lblAvgWork.setStringValue_(secToTimeStr(stat.avgWork))
+        self.lblSlackTotal.setStringValue_(secToTimeStr(stat.totalSlacking))
+        self.lblAvgSlack.setStringValue_(secToTimeStr(stat.avgSlacking))
         self.graphView.setNeedsDisplay_(True)
 
     def windowDidBecomeMain_(self, sender):

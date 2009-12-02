@@ -48,15 +48,6 @@ class MainController(NSObject):
     tasks = None
     
     def awakeFromNib(self):
-        timeFormatter = fh.SecondsToTimeFormatter.alloc().init()
-        timeStructFormatter = fh.TimeStructToTimeFormatter.alloc().init()
-        
-        self.lblTimeSpent.setFormatter_(timeFormatter)
-        self.lblSlackingTime.setFormatter_(timeFormatter)
-        self.lblTimeLeft.setFormatter_(timeFormatter)
-        self.lblTimeSpentCurr.setFormatter_(timeFormatter)
-        self.lblWorkTill.setFormatter_(timeStructFormatter)
-        
         self.initControls()
         self.initWindowStates()
         self.readCounters()
@@ -98,12 +89,12 @@ class MainController(NSObject):
         
     def readCounters(self):
         """Read counters"""
-        self.lblTimeSpent.setStringValue_(self.tasks.timings.spentSeconds)
-        self.lblSlackingTime.setStringValue_(self.tasks.timings.slackingSeconds)
-        self.lblTimeLeft.setStringValue_(self.tasks.timings.leftSeconds)
-        self.lblTimeSpentCurr.setStringValue_(self.tasks.timings.currentSeconds)
+        self.lblTimeSpent.setStringValue_(fh.secToTimeStr(self.tasks.timings.spentSeconds))
+        self.lblSlackingTime.setStringValue_(fh.secToTimeStr(self.tasks.timings.slackingSeconds))
+        self.lblTimeLeft.setStringValue_(fh.secToTimeStr(self.tasks.timings.leftSeconds))
+        self.lblTimeSpentCurr.setStringValue_(fh.secToTimeStr(self.tasks.timings.currentSeconds))
         
-        self.lblWorkTill.setStringValue_(self.tasks.timings.workTillTime)
+        self.lblWorkTill.setStringValue_(fh.timeStructToTimeStr(self.tasks.timings.workTillTime))
 
     def appendTask(self, taskString, color):
         def appendText(text, color=None):

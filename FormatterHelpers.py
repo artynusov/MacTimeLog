@@ -61,21 +61,4 @@ def formatTaskString(date, task, projectName, spentSeconds, taskType):
         if projectName != "" and projectName != "Default" and taskType == "work":
             project = "%s %s " % (projectName, Settings.get("projectSeparator"))
         return "%s%s  >>  %s%s \n" % (secToTimeStr(spentSeconds), dtStr, project, task), color
-        
-class SecondsToTimeFormatter(NSFormatter):
-    """Formatter for time labels"""
-    def stringForObjectValue_(self, val):
-        return str(val)
-        
-    def getObjectValue_forString_errorDescription_(self, v):
-        return (True, secToTimeStr(v), None)
-        
-class TimeStructToTimeFormatter(NSFormatter):
-    """Formater for work till label"""
-    def stringForObjectValue_(self, val):
-        return str(val)
-        
-    def getObjectValue_forString_errorDescription_(self, v):
-        return (True, timeStructToTimeStr(v), None)
-    
     
