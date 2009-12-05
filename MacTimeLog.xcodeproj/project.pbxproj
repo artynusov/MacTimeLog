@@ -21,6 +21,7 @@
 		AC17747410A86EEA00A62A32 /* Charts.py in Resources */ = {isa = PBXBuildFile; fileRef = AC17747310A86EEA00A62A32 /* Charts.py */; };
 		AC18DB7910B03883000BDEF0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = AC18DB7810B03883000BDEF0 /* Credits.html */; };
 		AC18DBBD10B072FD000BDEF0 /* Statistics.py in Resources */ = {isa = PBXBuildFile; fileRef = AC18DBBC10B072FD000BDEF0 /* Statistics.py */; };
+		AC3E0F4810CA5CD700C387FD /* MainWindowDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */; };
 		AC5E4EAD10A993F0007D3920 /* ReportController.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E4EAC10A993F0007D3920 /* ReportController.py */; };
 		AC5E4FC810AB523C007D3920 /* GraphView.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E4FC710AB523C007D3920 /* GraphView.py */; };
 		AC5E506D10AC4E2C007D3920 /* PreferencesController.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E506C10AC4E2C007D3920 /* PreferencesController.py */; };
@@ -56,6 +57,7 @@
 		AC17747310A86EEA00A62A32 /* Charts.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Charts.py; sourceTree = "<group>"; };
 		AC18DB7810B03883000BDEF0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Credits.html; path = data/Credits.html; sourceTree = "<group>"; };
 		AC18DBBC10B072FD000BDEF0 /* Statistics.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Statistics.py; sourceTree = "<group>"; };
+		AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MainWindowDelegate.py; sourceTree = "<group>"; };
 		AC5E4EAC10A993F0007D3920 /* ReportController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ReportController.py; sourceTree = "<group>"; };
 		AC5E4FC710AB523C007D3920 /* GraphView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = GraphView.py; sourceTree = "<group>"; };
 		AC5E506C10AC4E2C007D3920 /* PreferencesController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = PreferencesController.py; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */,
 				AC7928E310B8937F001F21D6 /* FormatterHelpers.py */,
 				AC79288C10B72F8B001F21D6 /* SlackingAutocompletes.py */,
 				AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */,
@@ -244,6 +247,7 @@
 				AC944D1110B6FB63001F0932 /* MacTimeLogApplication.py in Resources */,
 				AC79288D10B72F8B001F21D6 /* SlackingAutocompletes.py in Resources */,
 				AC7928E410B8937F001F21D6 /* FormatterHelpers.py in Resources */,
+				AC3E0F4810CA5CD700C387FD /* MainWindowDelegate.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

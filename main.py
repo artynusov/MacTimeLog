@@ -33,6 +33,7 @@ import MainController
 import GraphView
 import ReportController
 import PreferencesController
+import MainWindowDelegate
 
 # pass control to AppKit
 AppHelper.runEventLoop()
