@@ -19,6 +19,10 @@ def secToHrsMinsTuple(sec):
 def secToHours(sec):
     """Convert seconds to hours"""
     return int(sec) / 3600.
+
+def secToMinutes(sec):
+    """Convert seconds to mintes"""
+    return int(sec) / 60.
     
 def hoursToSeconds(hrs):
     """Convert seconds to hours"""

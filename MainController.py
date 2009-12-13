@@ -13,6 +13,7 @@ from Projects import Projects
 from SlackingAutocompletes import SlackingAutocompletes
 import FormatterHelpers as fh
 from Settings import Settings
+from Notification import Notification
 
 
 class MainController(NSObject):
@@ -45,14 +46,21 @@ class MainController(NSObject):
     
     reportController = objc.IBOutlet("reportController")
     
+    applicationRef = objc.IBOutlet("applicationRef")
+    
     tasks = None
     
     def awakeFromNib(self):
+        self.notification = Notification(self.onGrowlClick)
         self.initControls()
         self.initWindowStates()
         self.readCounters()
         self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"), 
                               self, self.timerFunction, None, True)
+             
+    def onGrowlClick(self, context):
+        self.applicationRef.unhide()
+        self.cbxInput.becomeFirstResponder()
                               
     def initControls(self):
         """Init basic controls"""
@@ -84,6 +92,9 @@ class MainController(NSObject):
         """Timer callback function"""
         self.tasks.setCurrentTask(self.cbxInput.stringValue())
         self.readCounters()
+        
+        self.notification.idleNotify(self.tasks.timings.currentSeconds)
+        
         if self.tasks.timings.isNextDay():
             self.initControls()
         
@@ -93,7 +104,6 @@ class MainController(NSObject):
         self.lblSlackingTime.setStringValue_(fh.secToTimeStr(self.tasks.timings.slackingSeconds))
         self.lblTimeLeft.setStringValue_(fh.secToTimeStr(self.tasks.timings.leftSeconds))
         self.lblTimeSpentCurr.setStringValue_(fh.secToTimeStr(self.tasks.timings.currentSeconds))
-        
         self.lblWorkTill.setStringValue_(fh.timeStructToTimeStr(self.tasks.timings.workTillTime))
 
     def appendTask(self, taskString, color):

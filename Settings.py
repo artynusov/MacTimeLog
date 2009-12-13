@@ -41,7 +41,10 @@ class _Settings(object):
         "logEditCommand": "open -a TextEdit \"%s\"",
         "projectSeparator": "::",
         "selectedProject": "Default",
-        "startPlaceholder": "__start__"
+        "startPlaceholder": "__start__",
+        "showNotification": False,
+        "notificationTime": 40,
+        "notificationRepeatTime": 10
     }
 
     _globalSettings = {}

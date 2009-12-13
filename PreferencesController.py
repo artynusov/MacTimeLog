@@ -17,6 +17,14 @@ class PreferencesController(NSObject):
     stprWorkHours = objc.IBOutlet("stprWorkHours")
     
     edtWorkHours = objc.IBOutlet("edtWorkHours")
+    
+    stprNotificationTime = objc.IBOutlet("stprNotificationTime")
+    
+    edtNotificationTime = objc.IBOutlet("edtNotificationTime")
+    
+    stprNotificationRepeatTime = objc.IBOutlet("stprNotificationRepeatTime")
+    
+    edtNotificationRepeatTime = objc.IBOutlet("edtNotificationRepeatTime")
 
     dpkrWorkStarts = objc.IBOutlet("dpkrWorkStarts")
     
@@ -32,6 +40,8 @@ class PreferencesController(NSObject):
     
     chbShowWorkTill = objc.IBOutlet("chbShowWorkTill")
     
+    chbShowNotification = objc.IBOutlet("chbShowNotification")
+    
     chbShowDateTime = objc.IBOutlet("chbShowDateTime")
     
     mainController = objc.IBOutlet("mainController")
@@ -44,6 +54,12 @@ class PreferencesController(NSObject):
         self.stprWorkHours.setIntValue_(fh.secToHours(Settings.get("workDayLength")))
         self.edtWorkHours.setIntValue_(self.stprWorkHours.intValue())
         
+        self.stprNotificationTime.setIntValue_(Settings.get("notificationTime"))
+        self.edtNotificationTime.setIntValue_(self.stprNotificationTime.intValue())
+        
+        self.stprNotificationRepeatTime.setIntValue_(Settings.get("notificationRepeatTime"))
+        self.edtNotificationRepeatTime.setIntValue_(self.stprNotificationRepeatTime.intValue())
+        
         workEndTime = datetime.datetime.strptime(Settings.get("workEndTime"), "%H:%M").time()
         someDate = datetime.datetime.combine(datetime.datetime.now(), workEndTime)
         self.dpkrWorkStarts.setDateValue_(fh.datetimeToNSDate(someDate)) 
@@ -52,6 +68,7 @@ class PreferencesController(NSObject):
         
         self.chbShowWorkTill.setState_(1 if Settings.get("showWorkTill") else 0)
         self.chbShowDateTime.setState_(1 if Settings.get("showDateTime") else 0)
+        self.chbShowNotification.setState_(1 if Settings.get("showNotification") else 0)
         
         self.edtDateTimeFormat.setStringValue_(Settings.get("logDateTimeFormat"))
         self.edtDateTimeFormat.setEnabled_(self.chbShowDateTime.state())
@@ -62,6 +79,8 @@ class PreferencesController(NSObject):
         Settings.set("workEndTime", dateStr[11:16])
         Settings.set("logEditCommand", self.edtLogEditCommand.stringValue())
         Settings.set("logDateTimeFormat", self.edtDateTimeFormat.stringValue())
+        Settings.set("notificationTime", self.stprNotificationTime.intValue())
+        Settings.set("notificationRepeatTime", self.stprNotificationRepeatTime.intValue())
         Settings.sync()
         
     def windowShouldClose_(self, sender):
@@ -95,4 +114,15 @@ class PreferencesController(NSObject):
     @objc.IBAction
     def showWorkTill_(self, sender):
         Settings.set("showWorkTill", bool(self.chbShowWorkTill.state()))
+    
+    @objc.IBAction
+    def showNotification_(self, sender):
+        result = bool(self.chbShowNotification.state())
+        Settings.set("showNotification", result)   
+        self.stprNotificationTime.setEnabled_(result)
+        self.edtNotificationTime.setEnabled_(result)
+        self.stprNotificationRepeatTime.setEnabled_(result)
+        self.edtNotificationRepeatTime.setEnabled_(result)
+        
+    
         
