@@ -13,17 +13,17 @@ class MacTimeLogApplication(NSApplication):
                                              GetApplicationEventTarget(), 0)
     
     def sendEvent_(self, theEvent):
-    
-        if theEvent.type() == NSSystemDefined and \
-               theEvent.subtype() == kEventHotKeyPressedSubtype:
+        if theEvent:
+            if theEvent.type() == NSSystemDefined and \
+                   theEvent.subtype() == kEventHotKeyPressedSubtype:
                
-            self.activateIgnoringOtherApps_(True)
+                self.activateIgnoringOtherApps_(True)
 
-            if self.isHidden():
-                self.unhide()
-            else:
-                if self.isActive():
-                    self.hide_(self)
-                else:
+                if self.isHidden():
                     self.unhide()
+                else:
+                    if self.isActive():
+                        self.hide_(self)
+                    else:
+                        self.unhide()
         super(MacTimeLogApplication, self).sendEvent_(theEvent)
