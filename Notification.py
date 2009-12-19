@@ -1,43 +1,40 @@
 import os
 import sys
 from datetime import datetime
+from subprocess import Popen
 import objc
 from Foundation import *
 from AppKit import *
 from Settings import Settings
 from FormatterHelpers import secToMinutes
+from utils import run_in_thread
 
-class GrowlWrapper(NSObject):
+
+class GrowlWrapper(object):
     
-    def init(self, name):
-        self = super(GrowlWrapper, self).init()
-        self.name = name
-        objc.loadBundle("GrowlApplicationBridge", globals(),
-                         bundle_path=objc.pathForFramework(os.path.dirname(sys.argv[0]) + '/../Frameworks/Growl.framework'))
+    def __init__(self, appName):
+        self.appName = appName
+        self.growl_binary = os.path.dirname(sys.argv[0]) + '/../Resources/bin/growlnotify'
+    
+    @run_in_thread
+    def notify(self, title, message):
+        pool = NSAutoreleasePool.new()
+        p1 = Popen(self.growl_binary + " --click -a '%s' -t '%s' -m '%s'" % (self.appName, title, message), shell=True)
+        return_code = p1.wait()
+        if return_code == 100:
+            self.clickCallback()
+        
+    def setClickCallback(self, callback):
+        self.clickCallback = callback
 
-        self._growl = GrowlApplicationBridge
-        self._growl.setGrowlDelegate_(self)
-        self._callback = lambda context:None
-        return self
-        
-    def growlNotificationWasClicked_(self, context):
-        self._callback(context)
-        
-    def setCallback(self, callback):
-        self._callback = callback
-        
-    def notify(self, title, description):
-        self._growl.notifyWithTitle_description_notificationName_iconData_priority_isSticky_clickContext_(title, 
-                                                                                                          description, self.name,None,
-                                                                                                          0,False,NSDate.date())
                                                                                                           
 class Notification(object):    
     
     def __init__(self, callback):
-        self._notificator = GrowlWrapper.alloc().init("MacTimeLog")
+        self._notificator = GrowlWrapper("MacTimeLog")
         self._title = "MacTimeLog"
         self._last = datetime.now()
-        self._notificator.setCallback(callback)
+        self._notificator.setClickCallback(callback)
         
     def idleNotify(self, idleSeconds):
         if not Settings.get("showNotification"):

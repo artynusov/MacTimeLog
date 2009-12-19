@@ -22,6 +22,8 @@
 		AC18DB7910B03883000BDEF0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = AC18DB7810B03883000BDEF0 /* Credits.html */; };
 		AC18DBBD10B072FD000BDEF0 /* Statistics.py in Resources */ = {isa = PBXBuildFile; fileRef = AC18DBBC10B072FD000BDEF0 /* Statistics.py */; };
 		AC3E0F4810CA5CD700C387FD /* MainWindowDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */; };
+		AC578BA510DCC49C0048D358 /* bin in Resources */ = {isa = PBXBuildFile; fileRef = AC578BA210DCC49C0048D358 /* bin */; };
+		AC578C1C10DCCB430048D358 /* utils.py in Resources */ = {isa = PBXBuildFile; fileRef = AC578C1B10DCCB430048D358 /* utils.py */; };
 		AC5E4EAD10A993F0007D3920 /* ReportController.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E4EAC10A993F0007D3920 /* ReportController.py */; };
 		AC5E4FC810AB523C007D3920 /* GraphView.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E4FC710AB523C007D3920 /* GraphView.py */; };
 		AC5E506D10AC4E2C007D3920 /* PreferencesController.py in Resources */ = {isa = PBXBuildFile; fileRef = AC5E506C10AC4E2C007D3920 /* PreferencesController.py */; };
@@ -31,8 +33,6 @@
 		AC944CB110B6ED63001F0932 /* MacTimeLog Help in Resources */ = {isa = PBXBuildFile; fileRef = AC944CAE10B6ED63001F0932 /* MacTimeLog Help */; };
 		AC944D1110B6FB63001F0932 /* MacTimeLogApplication.py in Resources */ = {isa = PBXBuildFile; fileRef = AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */; };
 		ACBDBEFD10CE745000859030 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */; };
-		ACBDBF5810CE7F1C00859030 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBDBF5710CE7F1C00859030 /* Growl.framework */; };
-		ACBDBF7210CE801C00859030 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ACBDBF5710CE7F1C00859030 /* Growl.framework */; };
 		ACE1889110AD5919009F0644 /* durus in Resources */ = {isa = PBXBuildFile; fileRef = ACE1885D10AD5919009F0644 /* durus */; };
 		ACFC998110A5817800523403 /* Timings.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998010A5817800523403 /* Timings.py */; };
 		ACFC998510A5844300523403 /* DataManager.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998410A5844300523403 /* DataManager.py */; };
@@ -47,7 +47,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ACBDBF7210CE801C00859030 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +74,8 @@
 		AC18DB7810B03883000BDEF0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Credits.html; path = data/Credits.html; sourceTree = "<group>"; };
 		AC18DBBC10B072FD000BDEF0 /* Statistics.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Statistics.py; sourceTree = "<group>"; };
 		AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MainWindowDelegate.py; sourceTree = "<group>"; };
+		AC578BA210DCC49C0048D358 /* bin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bin; sourceTree = "<group>"; };
+		AC578C1B10DCCB430048D358 /* utils.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = utils.py; sourceTree = "<group>"; };
 		AC5E4EAC10A993F0007D3920 /* ReportController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ReportController.py; sourceTree = "<group>"; };
 		AC5E4FC710AB523C007D3920 /* GraphView.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = GraphView.py; sourceTree = "<group>"; };
 		AC5E506C10AC4E2C007D3920 /* PreferencesController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = PreferencesController.py; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		AC944CAE10B6ED63001F0932 /* MacTimeLog Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MacTimeLog Help"; sourceTree = "<group>"; };
 		AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MacTimeLogApplication.py; sourceTree = "<group>"; };
 		ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		ACBDBF5710CE7F1C00859030 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = /Library/Frameworks/Growl.framework; sourceTree = "<absolute>"; };
 		ACE1885D10AD5919009F0644 /* durus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = durus; path = lib/durus; sourceTree = "<group>"; };
 		ACFC998010A5817800523403 /* Timings.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Timings.py; sourceTree = "<group>"; };
 		ACFC998410A5844300523403 /* DataManager.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = DataManager.py; sourceTree = "<group>"; };
@@ -99,7 +99,6 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				77631A270C06C501005415CB /* Python.framework in Frameworks */,
-				ACBDBF5810CE7F1C00859030 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +108,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AC578C1B10DCCB430048D358 /* utils.py */,
 				AC73E0D210D53FB800FCFAB1 /* Notification.py */,
 				AC3E0F4710CA5CD700C387FD /* MainWindowDelegate.py */,
 				AC7928E310B8937F001F21D6 /* FormatterHelpers.py */,
@@ -136,7 +136,6 @@
 			children = (
 				77631A260C06C501005415CB /* Python.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				ACBDBF5710CE7F1C00859030 /* Growl.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -184,6 +183,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC578BA210DCC49C0048D358 /* bin */,
 				ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */,
 				AC944CAE10B6ED63001F0932 /* MacTimeLog Help */,
 				AC18DB7810B03883000BDEF0 /* Credits.html */,
@@ -275,6 +275,8 @@
 				AC3E0F4810CA5CD700C387FD /* MainWindowDelegate.py in Resources */,
 				ACBDBEFD10CE745000859030 /* Growl Registration Ticket.growlRegDict in Resources */,
 				AC73E0D310D53FB800FCFAB1 /* Notification.py in Resources */,
+				AC578BA510DCC49C0048D358 /* bin in Resources */,
+				AC578C1C10DCCB430048D358 /* utils.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

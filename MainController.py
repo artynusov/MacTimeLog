@@ -51,16 +51,16 @@ class MainController(NSObject):
     tasks = None
     
     def awakeFromNib(self):
-        self.notification = Notification(self.onGrowlClick)
+        def onGrowlClick():
+            self.applicationRef.unhide()
+            self.cbxInput.becomeFirstResponder()
+            
+        self.notification = Notification(onGrowlClick)
         self.initControls()
         self.initWindowStates()
         self.readCounters()
         self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"), 
                               self, self.timerFunction, None, True)
-             
-    def onGrowlClick(self, context):
-        self.applicationRef.unhide()
-        self.cbxInput.becomeFirstResponder()
                               
     def initControls(self):
         """Init basic controls"""
