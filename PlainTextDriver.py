@@ -40,8 +40,9 @@ class PlainTextDriver(object):
         self._readLog()
         lines = self._log.strip().split("\n")              
         buff = []
-        for i in xrange(1, len(lines) + 1):
-            line = lines[-i]
+        for line in lines[::-1]:
+            if line.strip().startswith("#"):
+                continue
             if line.strip() and len(line) >= self._dateLength:
                 date = datetime.datetime.strptime(line.strip()[0:self._dateLength], self._dateFormat)
                 
