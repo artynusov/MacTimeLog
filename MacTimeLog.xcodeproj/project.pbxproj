@@ -213,6 +213,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				ACBDBF7410CE802000859030 /* CopyFiles */,
+				AC578C9A10DD1AE90048D358 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -277,6 +278,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AC578C9A10DD1AE90048D358 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/ruby;
+			shellScript = "#!/usr/bin/env macruby\n \n# From: http://www.stompy.org/2008/08/14/xcode-and-git-another-build-script/\n# Expanded from here: http://www.furmanek.net/36/using-macruby-to-set-xcode-project-version-from-git/\n# Xcode auto-versioning script for Subversion by Axel Andersson\n# Updated for git by Marcus S. Zarra and Matt Long\n# Converted to ruby by Abizern\n# Converted to MacRuby by Gregory Furmanek\n# Merged with MacRuby version by elliottcable\n# Appends the git sha to the version number set in Xcode.\nrequire 'osx/cocoa'\n\ngit = `sh /etc/profile; which git`.chomp\nsha = `#{git} rev-parse --short HEAD`.chomp\n \ninfo_file = ENV['BUILT_PRODUCTS_DIR'] + \"/\" + ENV['INFOPLIST_PATH']\n \nlist = OSX::NSMutableDictionary.dictionaryWithContentsOfFile info_file\nlist['CFBundleVersion'] = sha\nlist.writeToFile 'Info.plist', :atomically => true";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
