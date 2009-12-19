@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *resourcePath = [mainBundle resourcePath];
-    NSArray *pythonPathArray = [NSArray arrayWithObjects: resourcePath, [resourcePath stringByAppendingPathComponent:@"PyObjC"], nil];
-    
+    NSArray *pythonPathArray = [NSArray arrayWithObjects: resourcePath, [resourcePath stringByAppendingPathComponent:@"PyObjC"], 
+                                @"/System/Library/Frameworks/Python.framework/Versions/2.5/Extras/lib/python/", nil];    
     setenv("PYTHONPATH", [[pythonPathArray componentsJoinedByString:@":"] UTF8String], 1);
     
     NSArray *possibleMainExtensions = [NSArray arrayWithObjects: @"py", @"pyc", @"pyo", nil];
