@@ -32,7 +32,6 @@
 		AC7928E410B8937F001F21D6 /* FormatterHelpers.py in Resources */ = {isa = PBXBuildFile; fileRef = AC7928E310B8937F001F21D6 /* FormatterHelpers.py */; };
 		AC944CB110B6ED63001F0932 /* MacTimeLog Help in Resources */ = {isa = PBXBuildFile; fileRef = AC944CAE10B6ED63001F0932 /* MacTimeLog Help */; };
 		AC944D1110B6FB63001F0932 /* MacTimeLogApplication.py in Resources */ = {isa = PBXBuildFile; fileRef = AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */; };
-		ACBDBEFD10CE745000859030 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */; };
 		ACE1889110AD5919009F0644 /* durus in Resources */ = {isa = PBXBuildFile; fileRef = ACE1885D10AD5919009F0644 /* durus */; };
 		ACFC998110A5817800523403 /* Timings.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998010A5817800523403 /* Timings.py */; };
 		ACFC998510A5844300523403 /* DataManager.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998410A5844300523403 /* DataManager.py */; };
@@ -84,7 +83,6 @@
 		AC7928E310B8937F001F21D6 /* FormatterHelpers.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = FormatterHelpers.py; sourceTree = "<group>"; };
 		AC944CAE10B6ED63001F0932 /* MacTimeLog Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MacTimeLog Help"; sourceTree = "<group>"; };
 		AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MacTimeLogApplication.py; sourceTree = "<group>"; };
-		ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		ACE1885D10AD5919009F0644 /* durus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = durus; path = lib/durus; sourceTree = "<group>"; };
 		ACFC998010A5817800523403 /* Timings.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Timings.py; sourceTree = "<group>"; };
 		ACFC998410A5844300523403 /* DataManager.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = DataManager.py; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				AC578BA210DCC49C0048D358 /* bin */,
-				ACBDBEFC10CE745000859030 /* Growl Registration Ticket.growlRegDict */,
 				AC944CAE10B6ED63001F0932 /* MacTimeLog Help */,
 				AC18DB7810B03883000BDEF0 /* Credits.html */,
 				ACE1885D10AD5919009F0644 /* durus */,
@@ -273,7 +270,6 @@
 				AC79288D10B72F8B001F21D6 /* SlackingAutocompletes.py in Resources */,
 				AC7928E410B8937F001F21D6 /* FormatterHelpers.py in Resources */,
 				AC3E0F4810CA5CD700C387FD /* MainWindowDelegate.py in Resources */,
-				ACBDBEFD10CE745000859030 /* Growl Registration Ticket.growlRegDict in Resources */,
 				AC73E0D310D53FB800FCFAB1 /* Notification.py in Resources */,
 				AC578BA510DCC49C0048D358 /* bin in Resources */,
 				AC578C1C10DCCB430048D358 /* utils.py in Resources */,
