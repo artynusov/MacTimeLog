@@ -44,7 +44,11 @@ class PreferencesController(NSObject):
     
     chbShowDateTime = objc.IBOutlet("chbShowDateTime")
     
+    chbSoundOnNotification = objc.IBOutlet("chbSoundOnNotification")
+    
     mainController = objc.IBOutlet("mainController")
+    
+    btnPreviewPopup = objc.IBOutlet("btnPreviewPopup")
     
     def awakeFromNib(self):
         self.initVlaues()
@@ -69,10 +73,12 @@ class PreferencesController(NSObject):
         self.chbShowWorkTill.setState_(1 if Settings.get("showWorkTill") else 0)
         self.chbShowDateTime.setState_(1 if Settings.get("showDateTime") else 0)
         self.chbShowNotification.setState_(1 if Settings.get("showNotification") else 0)
+        self.chbSoundOnNotification.setState_(1 if Settings.get("soundOnNotification") else 0)
         
         self.edtDateTimeFormat.setStringValue_(Settings.get("logDateTimeFormat"))
         self.edtDateTimeFormat.setEnabled_(self.chbShowDateTime.state())
-    
+        self.showNotification_(self)
+        
     def saveSettings(self):
         Settings.set("workDayLength", fh.hoursToSeconds(self.stprWorkHours.intValue()))
         dateStr = str(self.dpkrWorkStarts.dateValue())
@@ -114,7 +120,11 @@ class PreferencesController(NSObject):
     @objc.IBAction
     def showWorkTill_(self, sender):
         Settings.set("showWorkTill", bool(self.chbShowWorkTill.state()))
-    
+        
+    @objc.IBAction
+    def soundOnNotificaiton_(self, sender):
+        Settings.set("soundOnNotification", bool(self.chbSoundOnNotification.state()))
+
     @objc.IBAction
     def showNotification_(self, sender):
         result = bool(self.chbShowNotification.state())
@@ -123,6 +133,11 @@ class PreferencesController(NSObject):
         self.edtNotificationTime.setEnabled_(result)
         self.stprNotificationRepeatTime.setEnabled_(result)
         self.edtNotificationRepeatTime.setEnabled_(result)
+        self.chbSoundOnNotification.setEnabled_(result)
+        self.btnPreviewPopup.setEnabled_(result)
         
+    @objc.IBAction
+    def previewPopup_(self, sender):
+        self.mainController.notification.notify("Test notification")
     
         

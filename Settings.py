@@ -44,7 +44,8 @@ class _Settings(object):
         "startPlaceholder": "__start__",
         "showNotification": False,
         "notificationTime": 40,
-        "notificationRepeatTime": 10
+        "notificationRepeatTime": 10,
+        "soundOnNotification": False
     }
 
     _globalSettings = {}

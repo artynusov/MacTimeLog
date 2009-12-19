@@ -36,12 +36,24 @@ class Notification(object):
         self._last = datetime.now()
         self._notificator.setClickCallback(callback)
         
+    def playSound(self):
+        try:
+            systemSound = NSSound.soundNamed_("Hero")
+            systemSound.play()
+        except:
+            pass
+            
+    def notify(self, text):
+        self._notificator.notify(self._title, text)
+        if Settings.get("soundOnNotification"):
+            self.playSound()
+        
     def idleNotify(self, idleSeconds):
         if not Settings.get("showNotification"):
             self._last = datetime.now()
             
         elif secToMinutes(idleSeconds) >= Settings.get("notificationTime") \
         and secToMinutes((datetime.now() - self._last).seconds) >= Settings.get("notificationRepeatTime"):
-            self._notificator.notify(self._title, "What are you workig on?")
+            self.notify("What are you working on?")
             self._last = datetime.now()
-        
+            
