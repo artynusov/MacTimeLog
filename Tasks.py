@@ -23,8 +23,12 @@ class Tasks(object):
         attributes = (date, task, projectName, spentSeconds, self.taskType(task))
         self.tasks.append(attributes)
         return attributes
+        
+    def dayStarted(self):
+        """Return True if working day started else False"""
+        return bool(len(self.tasks))
     
-    def add(self, task, projectName):
+    def add(self, task, projectName=None):
         date = Timings.now()
         
         if self.taskType(task) != "work":

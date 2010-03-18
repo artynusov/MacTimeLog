@@ -45,7 +45,8 @@ class _Settings(object):
         "showNotification": False,
         "notificationTime": 40,
         "notificationRepeatTime": 10,
-        "soundOnNotification": False
+        "soundOnNotification": False,
+        "showHelpMessageOnStart": True
     }
 
     _globalSettings = {}

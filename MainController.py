@@ -48,6 +48,8 @@ class MainController(NSObject):
     
     applicationRef = objc.IBOutlet("applicationRef")
     
+    btnDone = objc.IBOutlet("btnDone")
+    
     tasks = None
     
     def awakeFromNib(self):
@@ -79,8 +81,16 @@ class MainController(NSObject):
         
         self.projectChange_(None)
         
+        self.initDoneButton()
+        
         self.fillTasks()
         self.scrollToEnd()
+        
+    def initDoneButton(self):
+        if self.tasks.dayStarted():
+            self.btnDone.setTitle_("Done")
+        else:
+            self.btnDone.setTitle_("Start")
         
     def initWindowStates(self):
         """Init windows sizes and positions"""
@@ -132,21 +142,42 @@ class MainController(NSObject):
         """Scroll tasks textarea to the end"""
         self.outputArea.scrollRangeToVisible_(NSMakeRange(self.outputArea.string().length(), 0))
 
+    def showStartHelpMessage(self):
+        """Show alert with help message"""
+        alert = NSAlert.alloc().init()
+        alert.addButtonWithTitle_('OK')
+        alert.setMessageText_("Congrats, you started your working day!")
+        alert.setInformativeText_("Now start doing your working activity (e.g reading mail). "
+                                  "When you finish with your activity go back to MacTimeLog and type it in. "
+                                  "If your activity is slacking, use 2 asterisks (**) at the end of the activity's name.")
+        alert.setShowsSuppressionButton_(True)
+        alert.runModal()
+        if alert.suppressionButton().state() == NSOnState:
+            Settings.set("showHelpMessageOnStart", False)
+            Settings.sync()
+
     @objc.IBAction
     def btnDonePress_(self, sender):
         """On done button press"""
-        if self.cbxInput.stringValue().strip():
-            taskName = self.cbxInput.stringValue()
-            self.appendTask(*fh.formatTaskString(*self.tasks.add(taskName, self.pbtnProject.titleOfSelectedItem())))
-            self.readCounters()
-            self.cbxInput.setStringValue_("")
-            self.scrollToEnd()
+        if self.tasks.dayStarted():
+            if self.cbxInput.stringValue().strip():
+                taskName = self.cbxInput.stringValue()
+                self.appendTask(*fh.formatTaskString(*self.tasks.add(taskName, self.pbtnProject.titleOfSelectedItem())))
+                self.readCounters()
+                self.cbxInput.setStringValue_("")
+                self.scrollToEnd()
             
-            if  Tasks.taskType(taskName) == "work":
-                Projects.addAutocomplete(self.pbtnProject.titleOfSelectedItem(), taskName)
-            else:
-                SlackingAutocompletes.add(taskName)
-            self.cbxInput.addItemWithObjectValue_(taskName)
+                if  Tasks.taskType(taskName) == "work":
+                    Projects.addAutocomplete(self.pbtnProject.titleOfSelectedItem(), taskName)
+                else:
+                    SlackingAutocompletes.add(taskName)
+                self.cbxInput.addItemWithObjectValue_(taskName)
+        else:
+            if Settings.get("showHelpMessageOnStart"):
+                self.showStartHelpMessage()
+            taskName = Settings.get("startPlaceholder")
+            self.appendTask(*fh.formatTaskString(*self.tasks.add(taskName)))
+            self.initDoneButton()
 
     @objc.IBAction
     def projectChange_(self, sender):
