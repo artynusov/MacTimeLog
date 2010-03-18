@@ -14,8 +14,6 @@ from Timings import Timings
 
 class ReportController(NSObject):
     
-    dateRangesView = objc.IBOutlet("dateRangesView")
-    
     attributeBox = objc.IBOutlet("attributeBox")
     
     graphView = objc.IBOutlet("graphView")
@@ -36,6 +34,8 @@ class ReportController(NSObject):
     
     dpkrTo = objc.IBOutlet("dpkrTo")
     
+    btnShow = objc.IBOutlet("btnShow")
+    
     startDate = Timings.workStartDateTime() 
     
     endDate = Timings.workStartDateTime() + datetime.timedelta(days=1)
@@ -43,19 +43,24 @@ class ReportController(NSObject):
     reportType = "tasks"
 
     def awakeFromNib(self):
+        self.customControls = [self.btnShow, self.dpkrTo, self.dpkrFrom]
         self.dpkrTo.setDateValue_(NSDate.alloc().init())
         self.dpkrFrom.setDateValue_(NSDate.alloc().init())
         self.graphView.setConversionFunction(secToTimeStr)
         self.generateChart()
+        
         
     def setDate(self, date):
         self.startDate = date
         self.endDate = Timings.workStartDateTime() + datetime.timedelta(days=1)
         
     def updateState(self):
-        self.dateRangesView.setHidden_(True)
+        self.setCustomControlsEnabled(False)
         self.generateChart()
         
+    def setCustomControlsEnabled(self, enabled):
+        for control in self.customControls:
+            control.setEnabled_(enabled)    
         
     def generateChart(self):
         self.graphView.setScrollView(self.scrollView)
@@ -83,7 +88,7 @@ class ReportController(NSObject):
         
     @objc.IBAction  
     def customMenu_(self, sender):
-        self.dateRangesView.setHidden_(False)
+        self.setCustomControlsEnabled(True)
         
     @objc.IBAction  
     def todayMenu_(self, sender):
