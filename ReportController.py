@@ -43,7 +43,8 @@ class ReportController(NSObject):
     reportType = "tasks"
 
     def awakeFromNib(self):
-        
+        self.dpkrTo.setDateValue_(NSDate.alloc().init())
+        self.dpkrFrom.setDateValue_(NSDate.alloc().init())
         self.graphView.setConversionFunction(secToTimeStr)
         self.generateChart()
         
