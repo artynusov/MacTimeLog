@@ -6,6 +6,7 @@
 # 
 
 import datetime
+import re
 import objc
 from Foundation import *
 from Settings import Settings
@@ -101,11 +102,19 @@ class PreferencesController(NSObject):
         
     @objc.IBAction
     def addProject_(self, sender):
-        if self.edtAddProject.stringValue() not in Projects.get():
-            Projects.add(self.edtAddProject.stringValue())
+        projectName = self.edtAddProject.stringValue()
+        if projectName not in Projects.get() and not re.match("^\s*$", projectName):
+                Projects.add(self.edtAddProject.stringValue())
+        else:
+            """Show alert with reason for failure"""
+            alert = NSAlert.alloc().init()
+            alert.addButtonWithTitle_('OK')
+            alert.setMessageText_("Failed to add new project")
+            alert.setInformativeText_("Please ensure the project does not already exist and that it contains characters.")
+            alert.runModal()
             
-            self.loadProjectsLists()
-            self.edtAddProject.setStringValue_("")
+        self.loadProjectsLists()
+        self.edtAddProject.setStringValue_("")
 
     @objc.IBAction
     def removeProject_(self, sender):
