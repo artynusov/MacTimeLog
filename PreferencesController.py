@@ -13,7 +13,7 @@ from Settings import Settings
 from Projects import Projects
 import FormatterHelpers as fh
 
-class PreferencesController(NSObject):
+class PreferencesController(NSWindowController):
     
     stprWorkHours = objc.IBOutlet("stprWorkHours")
     
@@ -47,14 +47,20 @@ class PreferencesController(NSObject):
     
     chbSoundOnNotification = objc.IBOutlet("chbSoundOnNotification")
     
-    mainController = objc.IBOutlet("mainController")
-    
     btnPreviewPopup = objc.IBOutlet("btnPreviewPopup")
     
+    def initWithMainContorller(self, mainController):
+        self.mainController = mainController
+        return super(PreferencesController, self).initWithWindowNibName_("Preferences")
+    
+    def showWindow_(self, sender):
+        self.window().makeKeyAndOrderFront_(sender)
+    
     def awakeFromNib(self):
+        self.window().setFrameAutosaveName_("prefWindow")
         self.initVlaues()
         self.loadProjectsLists()
-        
+    
     def initVlaues(self):
         self.stprWorkHours.setIntValue_(fh.secToHours(Settings.get("workDayLength")))
         self.edtWorkHours.setIntValue_(self.stprWorkHours.intValue())

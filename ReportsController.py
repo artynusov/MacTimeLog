@@ -1,5 +1,5 @@
 # 
-#  ReportController.py
+#  ReportsController.py
 #  Report controller
 #  
 #  Copyright 2009 Artem Yunusov. All rights reserved.
@@ -12,7 +12,7 @@ from Statistics import Statistics
 from FormatterHelpers import secToTimeStr, nsDateToDatetime
 from Timings import Timings
 
-class ReportController(NSObject):
+class ReportsController(NSWindowController):
     
     attributeBox = objc.IBOutlet("attributeBox")
     
@@ -41,14 +41,21 @@ class ReportController(NSObject):
     endDate = Timings.workStartDateTime() + datetime.timedelta(days=1)
     
     reportType = "tasks"
+    
+    def init(self):
+        return super(ReportsController, self).initWithWindowNibName_("Reports")
+    
+    def showWindow_(self, sender):
+        self.window().makeKeyAndOrderFront_(sender)
 
     def awakeFromNib(self):
+        self.window().setFrameAutosaveName_("reportsWindow")
         self.customControls = [self.btnShow, self.dpkrTo, self.dpkrFrom]
         self.dpkrTo.setDateValue_(NSDate.alloc().init())
         self.dpkrFrom.setDateValue_(NSDate.alloc().init())
         self.graphView.setConversionFunction(secToTimeStr)
         self.generateChart()
-        
+    
         
     def setDate(self, date):
         self.startDate = date
@@ -83,8 +90,8 @@ class ReportController(NSObject):
         self.lblAvgSlack.setStringValue_(secToTimeStr(stat.avgSlacking))
         self.graphView.setNeedsDisplay_(True)
 
-    def windowDidBecomeMain_(self, sender):
-        self.generateChart()
+#    def windowDidBecomeMain_(self, sender):
+#        self.generateChart()
         
     @objc.IBAction  
     def customMenu_(self, sender):

@@ -8,12 +8,16 @@ import os
 import objc
 from Foundation import *
 from AppKit import *
+
 from Tasks import Tasks
 from Projects import Projects
 from SlackingAutocompletes import SlackingAutocompletes
 import FormatterHelpers as fh
 from Settings import Settings
 from Notification import Notification
+from ReportsController import ReportsController
+from PreferencesController import PreferencesController
+from decorators import memoize
 
 
 class MainController(NSObject):
@@ -39,18 +43,22 @@ class MainController(NSObject):
     workTillBox = objc.IBOutlet("workTillBox")
     
     mainWindow = objc.IBOutlet("mainWindow")
-
-    prefWindow = objc.IBOutlet("prefWindow")
-
-    reportWindow = objc.IBOutlet("reportWindow")
-    
-    reportController = objc.IBOutlet("reportController")
     
     applicationRef = objc.IBOutlet("applicationRef")
     
     btnDone = objc.IBOutlet("btnDone")
     
     tasks = None
+
+    @property
+    @memoize
+    def reportsController(self):
+        return ReportsController.alloc().init()
+    
+    @property
+    @memoize
+    def preferencesController(self):
+        return PreferencesController.alloc().initWithMainContorller(self)
     
     def awakeFromNib(self):
         def onGrowlClick():
@@ -94,10 +102,10 @@ class MainController(NSObject):
         
     def initWindowStates(self):
         """Init windows sizes and positions"""
-        self.prefWindow.setFrameAutosaveName_("prefWindow")
+#        self.prefWindow.setFrameAutosaveName_("prefWindow")
         self.mainWindow.setFrameAutosaveName_("mainWindow")
-        self.reportWindow.setFrameAutosaveName_("reportWindow")
-                  
+#        self.reportWindow.setFrameAutosaveName_("reportWindow")
+    
     def timerFunction(self):
         """Timer callback function"""
         self.tasks.setCurrentTask(self.cbxInput.stringValue())
@@ -131,7 +139,7 @@ class MainController(NSObject):
         appendText(taskString, color)
         
         if self.reportWindow.isVisible():
-            self.reportController.generateChart()
+            self.reportsController.generateChart()
             
     def fillTasks(self):
         """Fill text area with tasks"""
@@ -195,4 +203,16 @@ class MainController(NSObject):
     def openLog_(self, sender):
         """ Open log in text editor"""
         os.system(Settings.get("logEditCommand") % Settings.get("logPath"))
+
+    @objc.IBAction
+    def openReports_(self, sender):
+        """Open reports window"""
+        self.reportsController.showWindow_(sender)
+
+    @objc.IBAction
+    def openPreferences_(self, sender):
+        """Open preferences window"""
+        self.preferencesController.showWindow_(sender)
+
         
+

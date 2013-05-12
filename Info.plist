@@ -43,7 +43,7 @@
 	<key>DTXcodeBuild</key>
 	<string>4H1003</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>MacTimeLogApplication</string>
 </dict>
