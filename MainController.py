@@ -38,8 +38,6 @@ class MainController(NSObject):
     
     pbtnProject = objc.IBOutlet("pbtnProject")
     
-    pbtnProject = objc.IBOutlet("pbtnProject")
-    
     workTillBox = objc.IBOutlet("workTillBox")
     
     mainWindow = objc.IBOutlet("mainWindow")
