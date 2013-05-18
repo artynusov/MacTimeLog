@@ -14,9 +14,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		AC01725C173ED1A400CFFB64 /* Reports.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC01725B173ED1A400CFFB64 /* Reports.xib */; };
 		AC01726617400EE200CFFB64 /* decorators.py in Resources */ = {isa = PBXBuildFile; fileRef = AC01726517400EE200CFFB64 /* decorators.py */; };
-		AC0172681740182A00CFFB64 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0172671740182A00CFFB64 /* Preferences.xib */; };
 		AC176B1E10A58E8A00A62A32 /* MainController.py in Resources */ = {isa = PBXBuildFile; fileRef = AC176B1D10A58E8A00A62A32 /* MainController.py */; };
 		AC176B6410A59C1200A62A32 /* iconset.icns in Resources */ = {isa = PBXBuildFile; fileRef = AC176B6310A59C1200A62A32 /* iconset.icns */; };
 		AC176B8D10A5FAD100A62A32 /* Tasks.py in Resources */ = {isa = PBXBuildFile; fileRef = AC176B8C10A5FAD100A62A32 /* Tasks.py */; };
@@ -36,6 +34,8 @@
 		AC944CB110B6ED63001F0932 /* MacTimeLog Help in Resources */ = {isa = PBXBuildFile; fileRef = AC944CAE10B6ED63001F0932 /* MacTimeLog Help */; };
 		AC944D1110B6FB63001F0932 /* MacTimeLogApplication.py in Resources */ = {isa = PBXBuildFile; fileRef = AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */; };
 		ACD3E8241741436F00290767 /* durus in Resources */ = {isa = PBXBuildFile; fileRef = ACD3E8231741436F00290767 /* durus */; };
+		ACF988D31747A58800E51BAF /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF988CF1747A58800E51BAF /* Preferences.xib */; };
+		ACF988D41747A58800E51BAF /* Reports.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACF988D11747A58800E51BAF /* Reports.xib */; };
 		ACFC998110A5817800523403 /* Timings.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998010A5817800523403 /* Timings.py */; };
 		ACFC998510A5844300523403 /* DataManager.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998410A5844300523403 /* DataManager.py */; };
 		ACFC998910A5847F00523403 /* PlainTextDriver.py in Resources */ = {isa = PBXBuildFile; fileRef = ACFC998810A5847F00523403 /* PlainTextDriver.py */; };
@@ -68,9 +68,7 @@
 		77C8C1F80C07829500965286 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Main.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MacTimeLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacTimeLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC01725B173ED1A400CFFB64 /* Reports.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Reports.xib; sourceTree = "<group>"; };
 		AC01726517400EE200CFFB64 /* decorators.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = decorators.py; sourceTree = "<group>"; };
-		AC0172671740182A00CFFB64 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		AC176B1D10A58E8A00A62A32 /* MainController.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MainController.py; sourceTree = "<group>"; };
 		AC176B6310A59C1200A62A32 /* iconset.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = iconset.icns; path = data/iconset.icns; sourceTree = "<group>"; };
 		AC176B8C10A5FAD100A62A32 /* Tasks.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Tasks.py; sourceTree = "<group>"; };
@@ -90,6 +88,8 @@
 		AC944CAE10B6ED63001F0932 /* MacTimeLog Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MacTimeLog Help"; sourceTree = "<group>"; };
 		AC944D1010B6FB63001F0932 /* MacTimeLogApplication.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = MacTimeLogApplication.py; sourceTree = "<group>"; };
 		ACD3E8231741436F00290767 /* durus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = durus; path = lib/durus; sourceTree = "<group>"; };
+		ACF988D01747A58800E51BAF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		ACF988D21747A58800E51BAF /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Reports.xib; sourceTree = "<group>"; };
 		ACFC998010A5817800523403 /* Timings.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Timings.py; sourceTree = "<group>"; };
 		ACFC998410A5844300523403 /* DataManager.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = DataManager.py; sourceTree = "<group>"; };
 		ACFC998810A5847F00523403 /* PlainTextDriver.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = PlainTextDriver.py; sourceTree = "<group>"; };
@@ -187,6 +187,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ACF988CF1747A58800E51BAF /* Preferences.xib */,
+				ACF988D11747A58800E51BAF /* Reports.xib */,
 				ACD3E8231741436F00290767 /* durus */,
 				AC578BA210DCC49C0048D358 /* bin */,
 				AC944CAE10B6ED63001F0932 /* MacTimeLog Help */,
@@ -195,8 +197,6 @@
 				77C8C1F70C07829500965286 /* Main.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				AC01725B173ED1A400CFFB64 /* Reports.xib */,
-				AC0172671740182A00CFFB64 /* Preferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -253,6 +253,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MacTimeLog */;
 			projectDirPath = "";
@@ -294,10 +295,10 @@
 				AC73E0D310D53FB800FCFAB1 /* Notification.py in Resources */,
 				AC578BA510DCC49C0048D358 /* bin in Resources */,
 				AC578C1C10DCCB430048D358 /* utils.py in Resources */,
-				AC01725C173ED1A400CFFB64 /* Reports.xib in Resources */,
 				AC01726617400EE200CFFB64 /* decorators.py in Resources */,
-				AC0172681740182A00CFFB64 /* Preferences.xib in Resources */,
 				ACD3E8241741436F00290767 /* durus in Resources */,
+				ACF988D31747A58800E51BAF /* Preferences.xib in Resources */,
+				ACF988D41747A58800E51BAF /* Reports.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +346,22 @@
 				77C8C1F80C07829500965286 /* English */,
 			);
 			name = Main.xib;
+			sourceTree = "<group>";
+		};
+		ACF988CF1747A58800E51BAF /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ACF988D01747A58800E51BAF /* English */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		ACF988D11747A58800E51BAF /* Reports.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ACF988D21747A58800E51BAF /* English */,
+			);
+			name = Reports.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
