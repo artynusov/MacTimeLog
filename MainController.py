@@ -104,12 +104,10 @@ class MainController(NSObject):
         else:
             self.btnDone.setTitle_("Start")
         
-    def initWindowStates(self):
-        """Init windows sizes and positions"""
-#        self.prefWindow.setFrameAutosaveName_("prefWindow")
+    def initWindow(self):
+        """Init window sizes and positions"""
         self.mainWindow.setFrameAutosaveName_("mainWindow")
-#        self.reportWindow.setFrameAutosaveName_("reportWindow")
-    
+
     def timerFunction(self):
         """Timer callback function"""
         self.tasks.setCurrentTask(self.cbxInput.stringValue())
