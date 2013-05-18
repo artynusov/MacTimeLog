@@ -31,7 +31,7 @@ import MacTimeLogAppDelegate
 import MacTimeLogApplication
 import MainController
 import GraphView
-import ReportController
+import ReportsController
 import PreferencesController
 import MainWindowDelegate
 

@@ -47,13 +47,17 @@ class MainController(NSObject):
     applicationRef = objc.IBOutlet("applicationRef")
     
     btnDone = objc.IBOutlet("btnDone")
-    
+
+    reportWindow = None
+
     tasks = None
 
     @property
     @memoize
     def reportsController(self):
-        return ReportsController.alloc().init()
+        controller = ReportsController.alloc().init()
+        self.reportWindow = controller.window()
+        return controller
     
     @property
     @memoize
@@ -67,7 +71,7 @@ class MainController(NSObject):
             
         self.notification = Notification(onGrowlClick)
         self.initControls()
-        self.initWindowStates()
+        self.initWindow()
         self.readCounters()
         self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"), 
                               self, self.timerFunction, None, True)
@@ -138,9 +142,9 @@ class MainController(NSObject):
                 self.outputArea.setTextColor_range_(color, colorRange)
         appendText(taskString, color)
         
-        if self.reportWindow.isVisible():
+        if self.reportWindow and self.reportWindow.isVisible():
             self.reportsController.generateChart()
-            
+
     def fillTasks(self):
         """Fill text area with tasks"""
         for task in self.tasks.taskList:
