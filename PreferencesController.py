@@ -9,6 +9,7 @@ import datetime
 import re
 import objc
 from Foundation import *
+from AppKit import *
 from Settings import Settings
 from Projects import Projects
 import FormatterHelpers as fh

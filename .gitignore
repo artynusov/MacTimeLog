@@ -1,6 +1,7 @@
 *.pyc
-lib/
+durus/
 build/
+dist/
 .DS_Store
 *.mode1v3
 *.mode2v3

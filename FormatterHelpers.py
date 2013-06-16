@@ -7,6 +7,7 @@
 
 import time
 from Foundation import *
+from AppKit import *
 from datetime import datetime
 from Settings import Settings
     

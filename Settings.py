@@ -50,12 +50,12 @@ class _Settings(object):
     }
 
     _globalSettings = {}
-    
+
     def __init__(self):
         self._settingsFile = "%s/%s" % (settingsFolder(self._appName), "settings")
         self._conn = Connection(FileStorage(self._settingsFile))
         self._globalSettings = self._conn.get_root()
-        
+
     def get(self, key):
         """Return setting value by key"""
         if key in self._globalSettings:
@@ -64,11 +64,11 @@ class _Settings(object):
             return self._defaultSettings[key]
         else:
             pass
-        
+
     def set(self, key, value):
         """Set setting value by key"""
         self._globalSettings[key] = value
-        
+
     def sync(self):
         self._conn.commit()
 

@@ -7,6 +7,7 @@
 import datetime
 import objc
 from Foundation import *
+from AppKit import *
 from Settings import Settings
 from Statistics import Statistics
 from FormatterHelpers import secToTimeStr, nsDateToDatetime
