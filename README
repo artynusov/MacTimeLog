@@ -1,0 +1,5 @@
+MacTimeLog is a simple time tracking tool for Mac OS X.
+
+To build MacTimeLog run:
+
+    make all
