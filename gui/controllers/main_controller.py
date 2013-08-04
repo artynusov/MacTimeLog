@@ -1,29 +1,30 @@
-# 
+#
 #  MainController.py
 #  Main application controller
-#  
+#
 #  Copyright 2009 Artem Yunusov. All rights reserved.
-# 
+#
 import os
 import objc
+
 from Foundation import *
 from AppKit import *
 
-from Tasks import Tasks
-from Projects import Projects
-from SlackingAutocompletes import SlackingAutocompletes
-import FormatterHelpers as fh
-from Settings import Settings
-from Notification import Notification
-from ReportsController import ReportsController
-from PreferencesController import PreferencesController
-from decorators import memoize
+from tasks import Tasks
+from tasks.projects import Projects
+from tasks.slacking_autocompletes import SlackingAutocompletes
+import common.formatter_helpers as fh
+from settings import Settings
+from common.notification import Notification
+from common.decorators import memoize
+from reports_controller import ReportsController
+from preferences_controller import PreferencesController
 
 
 class MainController(NSObject):
-    
+
     outputArea = objc.IBOutlet("outputArea")
-    
+
     lblTimeLeft = objc.IBOutlet("lblTimeLeft")
 
     lblTimeSpentCurr = objc.IBOutlet("lblTimeSpentCurr")
@@ -35,15 +36,15 @@ class MainController(NSObject):
     lblTimeSpent = objc.IBOutlet("lblTimeSpent")
 
     lblWorkTill = objc.IBOutlet("lblWorkTill")
-    
+
     pbtnProject = objc.IBOutlet("pbtnProject")
-    
+
     workTillBox = objc.IBOutlet("workTillBox")
-    
+
     mainWindow = objc.IBOutlet("mainWindow")
-    
+
     applicationRef = objc.IBOutlet("applicationRef")
-    
+
     btnDone = objc.IBOutlet("btnDone")
 
     reportWindow = None
@@ -56,52 +57,52 @@ class MainController(NSObject):
         controller = ReportsController.alloc().init()
         self.reportWindow = controller.window()
         return controller
-    
+
     @property
     @memoize
     def preferencesController(self):
         return PreferencesController.alloc().initWithMainContorller(self)
-    
+
     def awakeFromNib(self):
         def onGrowlClick():
             self.applicationRef.unhide()
             self.cbxInput.becomeFirstResponder()
-            
+
         self.notification = Notification(onGrowlClick)
         self.initControls()
         self.initWindow()
         self.readCounters()
-        self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"), 
+        self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"),
                               self, self.timerFunction, None, True)
-                              
+
     def initControls(self):
         """Init basic controls"""
         self.outputArea.setString_("")
-        
+
         self.tasks = Tasks()
-        
+
         if Settings.get("showWorkTill"):
             self.workTillBox.setHidden_(False)
         else:
             self.workTillBox.setHidden_(True)
-            
+
         self.pbtnProject.removeAllItems()
         self.pbtnProject.addItemsWithTitles_(Projects.get())
         self.pbtnProject.selectItemWithTitle_(Settings.get("selectedProject"))
-        
+
         self.projectChange_(None)
-        
+
         self.initDoneButton()
-        
+
         self.fillTasks()
         self.scrollToEnd()
-        
+
     def initDoneButton(self):
         if self.tasks.dayStarted():
             self.btnDone.setTitle_("Done")
         else:
             self.btnDone.setTitle_("Start")
-        
+
     def initWindow(self):
         """Init window sizes and positions"""
         self.mainWindow.setFrameAutosaveName_("mainWindow")
@@ -110,12 +111,12 @@ class MainController(NSObject):
         """Timer callback function"""
         self.tasks.setCurrentTask(self.cbxInput.stringValue())
         self.readCounters()
-        
+
         self.notification.idleNotify(self.tasks.timings.currentSeconds)
-        
+
         if self.tasks.timings.isNextDay():
             self.initControls()
-        
+
     def readCounters(self):
         """Read counters"""
         self.lblTimeSpent.setStringValue_(fh.secToTimeStr(self.tasks.timings.spentSeconds))
@@ -133,11 +134,11 @@ class MainController(NSObject):
             self.outputArea.replaceCharactersInRange_withString_(endRange, text)
             if color:
                 colorRange = NSRange()
-                colorRange.location = self.outputArea.textStorage().length() - len(text) 
+                colorRange.location = self.outputArea.textStorage().length() - len(text)
                 colorRange.length = len(text)
                 self.outputArea.setTextColor_range_(color, colorRange)
         appendText(taskString, color)
-        
+
         if self.reportWindow and self.reportWindow.isVisible():
             self.reportsController.generateChart()
 
@@ -145,7 +146,7 @@ class MainController(NSObject):
         """Fill text area with tasks"""
         for task in self.tasks.taskList:
             self.appendTask(*fh.formatTaskString(*task))
-            
+
     def scrollToEnd(self):
         """Scroll tasks textarea to the end"""
         self.outputArea.scrollRangeToVisible_(NSMakeRange(self.outputArea.string().length(), 0))
@@ -174,7 +175,7 @@ class MainController(NSObject):
                 self.readCounters()
                 self.cbxInput.setStringValue_("")
                 self.scrollToEnd()
-            
+
                 if  Tasks.taskType(taskName) == "work":
                     Projects.addAutocomplete(self.pbtnProject.titleOfSelectedItem(), taskName)
                 else:
@@ -198,7 +199,7 @@ class MainController(NSObject):
         if sender:
             Settings.set("selectedProject", unicode(self.pbtnProject.titleOfSelectedItem()))
         Settings.sync()
-        
+
     @objc.IBAction
     def openLog_(self, sender):
         """ Open log in text editor"""
@@ -213,6 +214,3 @@ class MainController(NSObject):
     def openPreferences_(self, sender):
         """Open preferences window"""
         self.preferencesController.showWindow_(sender)
-
-        
-

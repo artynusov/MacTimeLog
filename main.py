@@ -18,22 +18,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#import modules required by application
-import objc
-import Foundation
-import AppKit
-
 from PyObjCTools import AppHelper
 
 # import modules containing classes required to start application and load MainMenu.nib
 
-import MacTimeLogAppDelegate
-import MacTimeLogApplication
-import MainController
-import GraphView
-import ReportsController
-import PreferencesController
-import MainWindowDelegate
+from gui import application
+from gui.delegates import app_delegate, main_window_delegate
+from gui.controllers import main_controller, reports_controller, preferences_controller
+from gui.views import graph_view
+
 
 # pass control to AppKit
 AppHelper.runEventLoop()

@@ -11,6 +11,7 @@ import subprocess
 from setuptools import setup
 from plistlib import Plist
 
+
 def generate_plist(plist_file):
     """Read plist from file and set CFBundleVersion to HEAD commit hash"""
     try:
@@ -29,7 +30,7 @@ def generate_plist(plist_file):
 
 APP = ['main.py']
 
-DATA_FILES = ['data/Credits.html']
+DATA_FILES = ['gui', 'common', 'data_manager', 'tasks', 'data/English.lproj', 'data/Credits.html', 'data/MacTimeLog Help']
 
 OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
            'plist': generate_plist('Info.plist'),
@@ -39,8 +40,6 @@ for i in os.listdir('.'):
     if i.endswith('.py'):
         DATA_FILES.append(i)
 
-DATA_FILES.append("English.lproj")
-DATA_FILES.append("MacTimeLog Help")
 
 setup(
     app=APP,
