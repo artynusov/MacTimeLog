@@ -20,13 +20,15 @@
 
 from PyObjCTools import AppHelper
 
+from common import log_util
+log_util.init()
+
 # import modules containing classes required to start application and load MainMenu.nib
 
 from gui import application
 from gui.delegates import app_delegate, main_window_delegate
 from gui.controllers import main_controller, reports_controller, preferences_controller
 from gui.views import graph_view
-
 
 # pass control to AppKit
 AppHelper.runEventLoop()

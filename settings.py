@@ -74,6 +74,10 @@ class _Settings(object):
 
         showHelpMessageOnStart=True,
 
+        loggingLevel=logging.INFO,
+
+        loggingFormat='[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s'
+
     )
 
     _globalSettings = {}
