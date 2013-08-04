@@ -90,13 +90,21 @@ class PreferencesController(NSWindowController):
         self.showNotification_(self)
 
     def saveSettings(self):
-        Settings.set("workDayLength", fh.hoursToSeconds(self.stprWorkHours.intValue()))
-        dateStr = str(self.dpkrWorkStarts.dateValue())
-        Settings.set("workEndTime", dateStr[11:16])
+        Settings.set("workDayLength", fh.hoursToSeconds(
+                self.stprWorkHours.intValue()))
+
+        Settings.set("workEndTime", fh.nsDateToDatetime(
+                self.dpkrWorkStarts.dateValue()).strftime("%H:%M"))
+
         Settings.set("logEditCommand", self.edtLogEditCommand.stringValue())
+
         Settings.set("logDateTimeFormat", self.edtDateTimeFormat.stringValue())
+
         Settings.set("notificationTime", self.stprNotificationTime.intValue())
-        Settings.set("notificationRepeatTime", self.stprNotificationRepeatTime.intValue())
+
+        Settings.set("notificationRepeatTime",
+                self.stprNotificationRepeatTime.intValue())
+
         Settings.sync()
 
     def windowShouldClose_(self, sender):
