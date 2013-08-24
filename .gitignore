@@ -8,3 +8,4 @@ dist/
 *.pbxuser
 xcuserdata/
 project.xcworkspace/
+.sconsign.dblite

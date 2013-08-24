@@ -28,24 +28,26 @@ def generate_plist(plist_file):
     ))
     return plist
 
+
 APP = ['main.py']
 
-DATA_FILES = ['gui', 'common', 'data_manager', 'tasks', 'data/English.lproj', 'data/Credits.html', 'data/MacTimeLog Help']
+
+DATA_FILES = (['gui', 'common', 'data_manager', 'tasks', 'data/English.lproj',
+               'data/Credits.html','data/MacTimeLog Help'] +
+              [f for f in os.listdir('.') if f.endswith('.py')])
+
 
 OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
            'plist': generate_plist('Info.plist'),
            'packages': ['objc', 'durus']}
 
-for i in os.listdir('.'):
-    if i.endswith('.py'):
-        DATA_FILES.append(i)
 
-
-setup(
-    app=APP,
-    data_files=DATA_FILES,
-    options={'py2app': OPTIONS},
-    setup_requires=['pyobjc-framework-Cocoa', 'py2app', 'durus==3.1'],
-    name='MacTimeLog',
-    author='Artem Yunusov'
-)
+if __name__ == '__main__':
+    setup(
+        app=APP,
+        data_files=[] if os.environ.get("SCONS") else DATA_FILES,
+        options={'py2app': OPTIONS},
+        setup_requires=['pyobjc-framework-Cocoa', 'py2app', 'durus==3.1'],
+        name='MacTimeLog',
+        author='Artem Yunusov'
+    )
