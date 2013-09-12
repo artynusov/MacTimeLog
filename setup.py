@@ -32,9 +32,7 @@ def generate_plist(plist_file):
 APP = ['main.py']
 
 
-DATA_FILES = (['gui', 'common', 'data_manager', 'tasks', 'data/English.lproj',
-               'data/Credits.html','data/MacTimeLog Help'] +
-              [f for f in os.listdir('.') if f.endswith('.py')])
+DATA_FILES = (['data/English.lproj', 'data/Credits.html', 'data/MacTimeLog Help'])
 
 
 OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
@@ -43,6 +41,7 @@ OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
 
 
 if __name__ == '__main__':
+
     setup(
         app=APP,
         data_files=[] if os.environ.get("SCONS") else DATA_FILES,
