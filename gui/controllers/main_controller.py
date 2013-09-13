@@ -10,6 +10,7 @@ import objc
 from Foundation import *
 from AppKit import *
 
+import settings
 from user_prefs import userPrefs
 
 from tasks import Tasks
@@ -205,7 +206,7 @@ class MainController(NSObject):
     @objc.IBAction
     def openLog_(self, sender):
         """ Open log in text editor"""
-        os.system(userPrefs.logEditCommand % userPrefs.logPath)
+        os.system(userPrefs.logEditCommand % settings.LOG_PATH)
 
     @objc.IBAction
     def openReports_(self, sender):
