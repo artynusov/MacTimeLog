@@ -10,11 +10,13 @@ import objc
 from Foundation import *
 from AppKit import *
 
+from user_prefs import userPrefs
+
 from tasks import Tasks
 from tasks.projects import Projects
 from tasks.slacking_autocompletes import SlackingAutocompletes
 import common.formatter_helpers as fh
-from settings import Settings
+
 from common.notification import Notification
 from common.decorators import memoize
 from reports_controller import ReportsController
@@ -72,7 +74,7 @@ class MainController(NSObject):
         self.initControls()
         self.initWindow()
         self.readCounters()
-        self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(Settings.get("timerInterval"),
+        self._timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(userPrefs.timerInterval,
                               self, self.timerFunction, None, True)
 
     def initControls(self):
@@ -81,14 +83,14 @@ class MainController(NSObject):
 
         self.tasks = Tasks()
 
-        if Settings.get("showWorkTill"):
+        if userPrefs.showWorkTill:
             self.workTillBox.setHidden_(False)
         else:
             self.workTillBox.setHidden_(True)
 
         self.pbtnProject.removeAllItems()
         self.pbtnProject.addItemsWithTitles_(Projects.get())
-        self.pbtnProject.selectItemWithTitle_(Settings.get("selectedProject"))
+        self.pbtnProject.selectItemWithTitle_(userPrefs.selectedProject)
 
         self.projectChange_(None)
 
@@ -162,8 +164,8 @@ class MainController(NSObject):
         alert.setShowsSuppressionButton_(True)
         alert.runModal()
         if alert.suppressionButton().state() == NSOnState:
-            Settings.set("showHelpMessageOnStart", False)
-            Settings.sync()
+            userPrefs.showHelpMessageOnStart = False
+            userPrefs.save()
 
     @objc.IBAction
     def btnDonePress_(self, sender):
@@ -182,9 +184,9 @@ class MainController(NSObject):
                     SlackingAutocompletes.add(taskName)
                 self.cbxInput.addItemWithObjectValue_(taskName)
         else:
-            if Settings.get("showHelpMessageOnStart"):
+            if userPrefs.showHelpMessageOnStart:
                 self.showStartHelpMessage()
-            taskName = Settings.get("startPlaceholder")
+            taskName = userPrefs.startPlaceholder
             self.appendTask(*fh.formatTaskString(*self.tasks.add(taskName)))
             self.initDoneButton()
 
@@ -197,13 +199,13 @@ class MainController(NSObject):
                                     self.pbtnProject.titleOfSelectedItem(), SlackingAutocompletes.get()))
 
         if sender:
-            Settings.set("selectedProject", unicode(self.pbtnProject.titleOfSelectedItem()))
-        Settings.sync()
+            userPrefs.selectedProject = unicode(self.pbtnProject.titleOfSelectedItem())
+            userPrefs.save()
 
     @objc.IBAction
     def openLog_(self, sender):
         """ Open log in text editor"""
-        os.system(Settings.get("logEditCommand") % Settings.get("logPath"))
+        os.system(userPrefs.logEditCommand % userPrefs.logPath)
 
     @objc.IBAction
     def openReports_(self, sender):

@@ -9,7 +9,7 @@ from durus.file_storage import FileStorage
 from durus.connection import Connection
 from durus.persistent_dict import PersistentDict
 
-from settings import Settings
+from settings import PROJECTS_DATA_PATH
 
 
 class _Projects(object):
@@ -19,7 +19,7 @@ class _Projects(object):
     """
 
     def __init__(self):
-        self._conn = Connection(FileStorage(Settings.get("projectsDataPath")))
+        self._conn = Connection(FileStorage(PROJECTS_DATA_PATH))
         self._data = self._conn.get_root()
 
         if not len(self._data.keys()):

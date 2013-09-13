@@ -6,7 +6,8 @@ from subprocess import Popen
 from Foundation import *
 from AppKit import *
 
-from settings import Settings
+from user_prefs import userPrefs
+
 from common.formatter_helpers import secToMinutes
 from common.utils import run_in_thread
 
@@ -45,14 +46,16 @@ class Notification(object):
 
     def notify(self, text):
         self._notificator.notify(self._title, text)
-        if Settings.get("soundOnNotification"):
+        if userPrefs.soundOnNotification:
             self.playSound()
 
     def idleNotify(self, idleSeconds):
-        if not Settings.get("showNotification"):
+        if not userPrefs.showNotification:
             self._last = datetime.now()
 
-        elif secToMinutes(idleSeconds) >= Settings.get("notificationTime") \
-        and secToMinutes((datetime.now() - self._last).seconds) >= Settings.get("notificationRepeatTime"):
+        elif (secToMinutes(idleSeconds) >= userPrefs.notificationTime and
+              secToMinutes((datetime.now() - self._last).seconds) >=
+                    userPrefs.notificationRepeatTime):
+
             self.notify("What are you working on?")
             self._last = datetime.now()

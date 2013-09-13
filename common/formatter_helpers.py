@@ -10,7 +10,7 @@ from Foundation import *
 from AppKit import *
 from datetime import datetime
 
-from settings import Settings
+from user_prefs import userPrefs
 
 
 def secToHrsMinsTuple(sec):
@@ -42,7 +42,7 @@ def secToTimeStr(sec):
 
 def timeStructToTimeStr(timeStruct):
     """Convert time_struct to time string"""
-    return time.strftime(str(Settings.get("timeFormat")), timeStruct)
+    return time.strftime(userPrefs.timeFormat, timeStruct)
 
 
 def datetimeToNSDate(dt):
@@ -70,9 +70,9 @@ def formatTaskString(date, task, projectName, spentSeconds, taskType):
         return taskString, color
     else:
         dtStr = ""
-        if Settings.get("showDateTime"):
-            dtStr = " " + date.strftime(str(Settings.get("logDateTimeFormat")))
+        if userPrefs.showDateTime:
+            dtStr = " " + date.strftime(userPrefs.logDateTimeFormat)
         project = ""
         if projectName != "" and projectName != "Default" and taskType == "work":
-            project = "%s %s " % (projectName, Settings.get("projectSeparator"))
+            project = "%s %s " % (projectName, userPrefs.projectSeparator)
         return "%s%s  >>  %s%s \n" % (secToTimeStr(spentSeconds), dtStr, project, task), color

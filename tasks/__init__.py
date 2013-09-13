@@ -8,7 +8,8 @@
 import datetime
 import time
 
-from settings import Settings
+from user_prefs import userPrefs
+
 from data_manager import DataManager
 
 TASK_TYPE = ("work", "slack", None)
@@ -43,7 +44,7 @@ class Timings(object):
     @property
     def leftSeconds(self):
         """Return time left to work"""
-        res = Settings.get("workDayLength") - self.spentSeconds
+        res = userPrefs.workDayLength - self.spentSeconds
         if res < 0:
             return 0
         else:
@@ -70,7 +71,7 @@ class Timings(object):
 
     @staticmethod
     def workEndTime():
-        return datetime.datetime.strptime(Settings.get("workEndTime"), "%H:%M").time()
+        return datetime.datetime.strptime(userPrefs.workEndTime, "%H:%M").time()
 
     @staticmethod
     def workStartDateTime():

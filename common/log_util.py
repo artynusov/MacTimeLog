@@ -7,9 +7,8 @@ import sys
 import os
 import logging
 import traceback
-from os.path import expanduser
 
-from settings import Settings
+from settings import LOGGING_LEVEL, LOGGING_FORMAT, LOGGING_DIR
 
 
 def _excepthook(ex_cls, ex, tb):
@@ -23,20 +22,17 @@ def _excepthook(ex_cls, ex, tb):
 
 
 def init():
-
     sys.excepthook = _excepthook
 
     logger = logging.getLogger('mactimelog')
 
-    logs_dir = '{0}/Library/Logs/MacTimeLog/'.format(expanduser('~'))
+    if not os.path.exists(LOGGING_DIR):
+        os.makedirs(LOGGING_DIR)
 
-    if not os.path.exists(logs_dir):
-        os.makedirs(logs_dir)
+    handler = logging.FileHandler('{0}MacTimeLog.log'.format(LOGGING_DIR))
 
-    handler = logging.FileHandler('{0}MacTimeLog.log'.format(logs_dir))
-
-    formatter = logging.Formatter(Settings.loggingFormat)
+    formatter = logging.Formatter(LOGGING_FORMAT)
     handler.setFormatter(formatter)
 
     logger.addHandler(handler)
-    logger.setLevel(Settings.loggingLevel)
+    logger.setLevel(LOGGING_LEVEL)

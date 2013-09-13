@@ -8,13 +8,13 @@
 from durus.file_storage import FileStorage
 from durus.connection import Connection
 
-from settings import Settings
+from settings import SLACKING_DATA_PATH
 
 
 class _SlackingAutocompletes(object):
 
     def __init__(self):
-        self._conn = Connection(FileStorage(Settings.get("slackingDataPath")))
+        self._conn = Connection(FileStorage(SLACKING_DATA_PATH))
         self._data = self._conn.get_root()
 
     def get(self):

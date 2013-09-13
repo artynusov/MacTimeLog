@@ -11,7 +11,9 @@ import objc
 from Foundation import *
 from AppKit import *
 
-from settings import Settings
+import settings
+from user_prefs import userPrefs
+
 from tasks.projects import Projects
 import common.formatter_helpers as fh
 
@@ -65,47 +67,48 @@ class PreferencesController(NSWindowController):
         self.loadProjectsLists()
 
     def initVlaues(self):
-        self.stprWorkHours.setIntValue_(fh.secToHours(Settings.get("workDayLength")))
+        self.stprWorkHours.setIntValue_(fh.secToHours(userPrefs.workDayLength))
         self.edtWorkHours.setIntValue_(self.stprWorkHours.intValue())
 
-        self.stprNotificationTime.setIntValue_(Settings.get("notificationTime"))
+        self.stprNotificationTime.setIntValue_(userPrefs.notificationTime)
         self.edtNotificationTime.setIntValue_(self.stprNotificationTime.intValue())
 
-        self.stprNotificationRepeatTime.setIntValue_(Settings.get("notificationRepeatTime"))
+        self.stprNotificationRepeatTime.setIntValue_(userPrefs.notificationRepeatTime)
         self.edtNotificationRepeatTime.setIntValue_(self.stprNotificationRepeatTime.intValue())
 
-        workEndTime = datetime.datetime.strptime(Settings.get("workEndTime"), "%H:%M").time()
+        workEndTime = datetime.datetime.strptime(userPrefs.workEndTime, "%H:%M").time()
         someDate = datetime.datetime.combine(datetime.datetime.now(), workEndTime)
+
         self.dpkrWorkStarts.setDateValue_(fh.datetimeToNSDate(someDate))
 
-        self.edtLogEditCommand.setStringValue_(Settings.get("logEditCommand"))
+        self.edtLogEditCommand.setStringValue_(userPrefs.logEditCommand)
 
-        self.chbShowWorkTill.setState_(1 if Settings.get("showWorkTill") else 0)
-        self.chbShowDateTime.setState_(1 if Settings.get("showDateTime") else 0)
-        self.chbShowNotification.setState_(1 if Settings.get("showNotification") else 0)
-        self.chbSoundOnNotification.setState_(1 if Settings.get("soundOnNotification") else 0)
+        self.chbShowWorkTill.setState_(1 if userPrefs.showWorkTill else 0)
+        self.chbShowDateTime.setState_(1 if userPrefs.showDateTime else 0)
+        self.chbShowNotification.setState_(1 if userPrefs.showNotification else 0)
+        self.chbSoundOnNotification.setState_(1 if userPrefs.soundOnNotification else 0)
 
-        self.edtDateTimeFormat.setStringValue_(Settings.get("logDateTimeFormat"))
+        self.edtDateTimeFormat.setStringValue_(userPrefs.logDateTimeFormat)
         self.edtDateTimeFormat.setEnabled_(self.chbShowDateTime.state())
         self.showNotification_(self)
 
     def saveSettings(self):
-        Settings.set("workDayLength", fh.hoursToSeconds(
-                self.stprWorkHours.intValue()))
+        userPrefs.workDayLength = fh.hoursToSeconds(
+                self.stprWorkHours.intValue())
 
-        Settings.set("workEndTime", fh.nsDateToDatetime(
-                self.dpkrWorkStarts.dateValue()).strftime("%H:%M"))
+        userPrefs.workEndTime = fh.nsDateToDatetime(
+                self.dpkrWorkStarts.dateValue()).strftime("%H:%M")
 
-        Settings.set("logEditCommand", self.edtLogEditCommand.stringValue())
+        userPrefs.logEditComman = self.edtLogEditCommand.stringValue()
 
-        Settings.set("logDateTimeFormat", self.edtDateTimeFormat.stringValue())
+        userPrefs.logDateTimeFormat = self.edtDateTimeFormat.stringValue()
 
-        Settings.set("notificationTime", self.stprNotificationTime.intValue())
+        userPrefs.notificationTime = self.stprNotificationTime.intValue()
 
-        Settings.set("notificationRepeatTime",
-                self.stprNotificationRepeatTime.intValue())
+        userPrefs.notificationRepeatTime = (self.
+                stprNotificationRepeatTime.intValue())
 
-        Settings.sync()
+        userPrefs.save()
 
     def windowShouldClose_(self, sender):
         self.saveSettings()
@@ -123,15 +126,16 @@ class PreferencesController(NSWindowController):
         if projectName not in Projects.get() and not re.match("^\s*$", projectName):
                 Projects.add(self.edtAddProject.stringValue())
         else:
-            """Show alert with reason for failure"""
+            # show alert with reason for failure
             alert = NSAlert.alloc().init()
             alert.addButtonWithTitle_('OK')
-            alert.setMessageText_("Failed to add new project")
-            alert.setInformativeText_("Please ensure the project does not already exist and that it contains characters.")
+            alert.setMessageText_('Failed to add new project')
+            alert.setInformativeText_('Please ensure the project does not '
+                    'already exist and that it contains characters.')
             alert.runModal()
 
         self.loadProjectsLists()
-        self.edtAddProject.setStringValue_("")
+        self.edtAddProject.setStringValue_('')
 
     @objc.IBAction
     def removeProject_(self, sender):
@@ -141,20 +145,20 @@ class PreferencesController(NSWindowController):
     @objc.IBAction
     def showDateTime_(self, sender):
         self.edtDateTimeFormat.setEnabled_(self.chbShowDateTime.state())
-        Settings.set("showDateTime", bool(self.chbShowDateTime.state()))
+        userPrefs.showDateTime = bool(self.chbShowDateTime.state())
 
     @objc.IBAction
     def showWorkTill_(self, sender):
-        Settings.set("showWorkTill", bool(self.chbShowWorkTill.state()))
+        userPrefs.showWorkTill = bool(self.chbShowWorkTill.state())
 
     @objc.IBAction
     def soundOnNotificaiton_(self, sender):
-        Settings.set("soundOnNotification", bool(self.chbSoundOnNotification.state()))
+        userPrefs.soundOnNotification = bool(self.chbSoundOnNotification.state())
 
     @objc.IBAction
     def showNotification_(self, sender):
         result = bool(self.chbShowNotification.state())
-        Settings.set("showNotification", result)
+        userPrefs.showNotification = result
         self.stprNotificationTime.setEnabled_(result)
         self.edtNotificationTime.setEnabled_(result)
         self.stprNotificationRepeatTime.setEnabled_(result)

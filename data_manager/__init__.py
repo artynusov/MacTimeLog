@@ -6,16 +6,19 @@
 #
 from datetime import datetime
 
-from settings import Settings
+import settings
+from user_prefs import userPrefs
+
 from plain_text_driver import PlainTextDriver
 
 
 class _DataManager(object):
-    _driver = PlainTextDriver(Settings.get("logPath"), Settings.get("dateFormat"), 16, Settings.get("projectSeparator"))
+    _driver = PlainTextDriver(settings.LOG_PATH,
+            userPrefs.dateFormat, 16, userPrefs.projectSeparator)
 
     def writeTask(self, data, task, projectName, firstToday=False):
         if firstToday:
-            task = Settings.get("startPlaceholder")
+            task = userPrefs.startPlaceholder
             projectName = None
         self._driver.writeTask(data, task, projectName)
 
