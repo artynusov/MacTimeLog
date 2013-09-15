@@ -9,3 +9,5 @@ dist/
 xcuserdata/
 project.xcworkspace/
 .sconsign.dblite
+*.sublime-workspace
+*.sublime-project
