@@ -11,3 +11,4 @@ project.xcworkspace/
 .sconsign.dblite
 *.sublime-workspace
 *.sublime-project
+local_settings.py
