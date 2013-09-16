@@ -37,7 +37,7 @@ DATA_FILES = (['data/English.lproj', 'data/Credits.html', 'data/MacTimeLog Help'
 
 OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
            'plist': generate_plist('Info.plist'),
-           'packages': ['objc', 'durus']}
+           'packages': ['objc', 'durus'], 'excludes': ['local_settings']}
 
 
 if __name__ == '__main__':
