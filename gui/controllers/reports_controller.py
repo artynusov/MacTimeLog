@@ -155,8 +155,10 @@ class ReportsController(NSWindowController):
 
     @objc.IBAction
     def showCustom_(self, sender):
-        self.startDate = Timings.combineDateWithTime(nsDateToDatetime(self.dpkrFrom.dateValue()))
+        self.startDate = Timings.combineDateWithTime(
+                nsDateToDatetime(self.dpkrFrom.dateValue()))
 
-        self.endDate = Timings.combineDateWithTime(nsDateToDatetime(self.dpkrTo.dateValue()) +
-                                                   datetime.timedelta(days=1))
+        self.endDate = Timings.combineDateWithTime(
+                nsDateToDatetime(self.dpkrTo.dateValue()) +
+                    datetime.timedelta(days=1))
         self.generateChart()

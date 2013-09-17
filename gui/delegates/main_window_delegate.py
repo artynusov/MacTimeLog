@@ -8,6 +8,7 @@
 from AppKit import *
 from Foundation import *
 
+
 class MainWindowDelegate(NSWindow):
 
     def windowShouldClose_(self, sender):

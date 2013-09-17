@@ -1,5 +1,5 @@
 import logging
-from ConfigParser import ConfigParser, NoOptionError, NoSectionError
+from ConfigParser import ConfigParser, NoOptionError
 
 import settings
 

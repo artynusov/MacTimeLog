@@ -8,6 +8,7 @@
 from Foundation import *
 from AppKit import *
 
+
 class Bar(object):
     """Bar class"""
     def __init__(self, title, value, color=None, gradient=None):
@@ -16,11 +17,13 @@ class Bar(object):
         self.color = color
         self.gradient = gradient
 
+
 class Header(object):
     """Header class"""
 
     def __init__(self, title):
         self.title = title
+
 
 class HorizontalBarChart(object):
     """Basic Bar Chart logic"""
@@ -43,7 +46,8 @@ class HorizontalBarChart(object):
 
     def _countBarSize(self, value):
         """Return Bar width in pixels taking in account it's value"""
-        return round((self._chartWidth-self._barXPos - self._rightSpace) / (float(self._scaleSize) / float(value)))
+        return round((self._chartWidth-self._barXPos - self._rightSpace) /
+                (float(self._scaleSize) / float(value)))
 
     def _prepareValue(self, value):
         """Apply conversion function to value before displaying it"""
@@ -70,7 +74,8 @@ class HorizontalBarChart(object):
     def setData(self, data):
         """Set Chart data"""
         self._data = data
-        self._barXPos = self._prepareBarAttributes() + self._textXPos + self._barTextSpace
+        self._barXPos = (self._prepareBarAttributes() +
+                self._textXPos + self._barTextSpace)
 
     def setConversionFunction(self, conv):
         """Set conversion function that will be called before displaying value"""
@@ -98,38 +103,44 @@ class CocoaHorizontalBarChart(HorizontalBarChart):
         for obj in self._data:
             if isinstance(obj, Bar):
                 stringAttributes = {
-                    NSFontAttributeName: NSFont.fontWithName_size_("Helvetica", 12),
+                    NSFontAttributeName: NSFont.fontWithName_size_(
+                            "Helvetica", 12),
                 }
 
                 obj.prepTitle = NSAttributedString.alloc(). \
-                                         initWithString_attributes_(obj.title, stringAttributes)
+                                         initWithString_attributes_(obj.title,
+                                                stringAttributes)
                 maxWidth = max(maxWidth, obj.prepTitle.size().width)
 
                 stringAttributes[NSForegroundColorAttributeName] = \
-                            NSColor.colorWithCalibratedRed_green_blue_alpha_(0.3,0.3,0.3, 1.0)
+                            NSColor.colorWithCalibratedRed_green_blue_alpha_(
+                                    0.3, 0.3, 0.3, 1.0)
 
-                obj.prepValue = NSAttributedString.alloc().initWithString_attributes_(
-                            self._prepareValue(obj.value), stringAttributes)
+                obj.prepValue = (NSAttributedString.alloc().
+                            initWithString_attributes_(self._prepareValue(
+                                obj.value), stringAttributes))
         return maxWidth
 
     def _dropShadows(self):
         """Switch on shadow"""
         shadow = self._shadow
-        shadow.setShadowColor_(NSColor.blackColor().colorWithAlphaComponent_(0.3))
+        shadow.setShadowColor_(NSColor.blackColor().colorWithAlphaComponent_(
+                0.3))
         shadow.setShadowOffset_(NSMakeSize(4.0, -4.0))
         shadow.setShadowBlurRadius_(3.0)
         shadow.set()
 
     def _offShadow(self):
         """Switch off shadow"""
-        self._shadow = NSShadow.alloc().init();
+        self._shadow = NSShadow.alloc().init()
         self._shadow.set()
 
     def _gradient(self, path, color1, color2):
         """Apply gradient"""
         startingColor = NSColor.colorWithCalibratedRed_green_blue_alpha_(*color1)
-    	endingColor = NSColor.colorWithCalibratedRed_green_blue_alpha_(*color2)
-        gradient = NSGradient.alloc().initWithStartingColor_endingColor_(startingColor, endingColor)
+        endingColor = NSColor.colorWithCalibratedRed_green_blue_alpha_(*color2)
+        gradient = NSGradient.alloc().initWithStartingColor_endingColor_(
+                startingColor, endingColor)
         gradient.drawInBezierPath_angle_(path, 90)
 
     def _drawHeader(self, header):
@@ -138,22 +149,25 @@ class CocoaHorizontalBarChart(HorizontalBarChart):
             NSFontAttributeName: NSFont.fontWithName_size_("Helvetica", 15),
         }
         self._offShadow()
-        headerStr = NSAttributedString.alloc().initWithString_attributes_(header.title, stringAttributes)
+        headerStr = NSAttributedString.alloc().initWithString_attributes_(
+                header.title, stringAttributes)
         self._currentYPos += self._barSpace
 
         headerStr.drawAtPoint_(NSMakePoint(self._barXPos, self._currentYPos))
         self._currentYPos += headerStr.size().height
-
 
     def _drawBar(self, bar):
         """Draw bar with label"""
         barLength = self._countBarSize(bar.value)
         self._offShadow()
 
-        textYPos = int(round((self._barHeight - bar.prepTitle.size().height) / 2.0))
-        bar.prepTitle.drawAtPoint_(NSMakePoint(self._textXPos, textYPos + self._currentYPos))
+        textYPos = int(round((
+                self._barHeight - bar.prepTitle.size().height) / 2.0))
+        bar.prepTitle.drawAtPoint_(NSMakePoint(self._textXPos,
+                textYPos + self._currentYPos))
 
-        bar.prepValue.drawAtPoint_(NSMakePoint(self._barXPos + barLength + 10, textYPos + self._currentYPos))
+        bar.prepValue.drawAtPoint_(NSMakePoint(self._barXPos + barLength + 10,
+                textYPos + self._currentYPos))
 
         self._dropShadows()
 
@@ -163,11 +177,10 @@ class CocoaHorizontalBarChart(HorizontalBarChart):
             NSColor.colorWithCalibratedRed_green_blue_alpha_.setFill(bar.color)
 
         drawingPath = NSBezierPath.bezierPath()
-        drawingPath.appendBezierPathWithRect_(NSMakeRect(self._barXPos, self._currentYPos, barLength, self._barHeight))
+        drawingPath.appendBezierPathWithRect_(NSMakeRect(self._barXPos,
+                self._currentYPos, barLength, self._barHeight))
         drawingPath.stroke()
         drawingPath.fill()
 
         if bar.gradient:
             self._gradient(drawingPath, *bar.gradient)
-
-
