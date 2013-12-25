@@ -1,7 +1,14 @@
 *.pyc
-lib/
+durus/
 build/
+dist/
 .DS_Store
 *.mode1v3
 *.mode2v3
 *.pbxuser
+xcuserdata/
+project.xcworkspace/
+.sconsign.dblite
+*.sublime-workspace
+*.sublime-project
+local_settings.py
