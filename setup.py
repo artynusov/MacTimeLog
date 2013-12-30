@@ -45,7 +45,7 @@ if __name__ == '__main__':
     setup(
         app=APP,
         data_files=[] if os.environ.get("SCONS") else DATA_FILES,
-        install_requires=['durus==3.1', 'pyobjc-framework-Cocoa', 'py2app'],
+        install_requires=['durus==3.9', 'pyobjc-framework-Cocoa', 'py2app'],
         options={'py2app': OPTIONS},
         name='MacTimeLog',
         author='Artem Yunusov'
