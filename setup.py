@@ -12,18 +12,28 @@ from setuptools import setup
 from plistlib import Plist
 
 
+def git(*args):
+    result = None
+    try:
+        result = subprocess.check_output(args).strip()
+    except Exception, e:
+        print >> sys.stderr, ('Unable to run git: {0}'.format(e))
+    return result
+
+
+
 def generate_plist(plist_file):
     """Read plist from file and set CFBundleVersion to HEAD commit hash"""
-    try:
-        commit_hash = subprocess.check_output(
-                ['git', 'rev-parse', '--short', 'HEAD']).strip()
-    except Exception, e:
-        print >> sys.stderr, ('Unable to get git commit hash for '
-                'CFBundleVersion {0}'.format(e))
-        commit_hash = 'none'
+
+    version = git('git', 'describe', '--abbrev=0', '--tags')
+    commit_hash = git('git', 'rev-parse', '--short', 'HEAD')
+
+    if version is None or commit_hash is None:
+        sys.exit(-1)
 
     plist = Plist.fromFile(plist_file)
     plist.update(dict(
+        CFBundleShortVersionString=version,
         CFBundleVersion=commit_hash,
     ))
     return plist
