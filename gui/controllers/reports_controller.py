@@ -64,8 +64,8 @@ class ReportsController(NSWindowController):
         self.endDate = Timings.workStartDateTime() + datetime.timedelta(days=1)
 
     def updateCustomDatePicker(self):
-        self.dpkrTo.setDateValue_(datetimeToNSDate(self.startDate))
-        self.dpkrFrom.setDateValue_(datetimeToNSDate(self.endDate))
+        self.dpkrTo.setDateValue_(datetimeToNSDate(self.endDate))
+        self.dpkrFrom.setDateValue_(datetimeToNSDate(self.startDate))
 
     def updateState(self):
         self.updateCustomDatePicker()
