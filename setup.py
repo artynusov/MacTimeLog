@@ -12,18 +12,28 @@ from setuptools import setup
 from plistlib import Plist
 
 
+def git(*args):
+    result = None
+    try:
+        result = subprocess.check_output(args).strip()
+    except Exception, e:
+        print >> sys.stderr, ('Unable to run git: {0}'.format(e))
+    return result
+
+
+
 def generate_plist(plist_file):
     """Read plist from file and set CFBundleVersion to HEAD commit hash"""
-    try:
-        commit_hash = subprocess.check_output(
-                ['git', 'rev-parse', '--short', 'HEAD']).strip()
-    except Exception, e:
-        print >> sys.stderr, ('Unable to get git commit hash for '
-                'CFBundleVersion {0}'.format(e))
-        commit_hash = 'none'
+
+    version = git('git', 'describe', '--abbrev=0', '--tags')
+    commit_hash = git('git', 'rev-parse', '--short', 'HEAD')
+
+    if version is None or commit_hash is None:
+        sys.exit(-1)
 
     plist = Plist.fromFile(plist_file)
     plist.update(dict(
+        CFBundleShortVersionString=version,
         CFBundleVersion=commit_hash,
     ))
     return plist
@@ -37,7 +47,8 @@ DATA_FILES = (['data/English.lproj', 'data/Credits.html', 'data/MacTimeLog Help'
 
 OPTIONS = {'argv_emulation': True, 'iconfile': 'data/iconset.icns',
            'plist': generate_plist('Info.plist'),
-           'packages': ['objc', 'durus'], 'excludes': ['local_settings']}
+           'packages': ['objc', 'durus'],
+           'excludes': ['local_settings']}
 
 
 if __name__ == '__main__':
@@ -45,8 +56,8 @@ if __name__ == '__main__':
     setup(
         app=APP,
         data_files=[] if os.environ.get("SCONS") else DATA_FILES,
+        install_requires=['durus==3.9', 'pyobjc-framework-Cocoa', 'py2app'],
         options={'py2app': OPTIONS},
-        setup_requires=['pyobjc-framework-Cocoa', 'py2app', 'durus==3.1'],
         name='MacTimeLog',
         author='Artem Yunusov'
     )

@@ -10,7 +10,8 @@ from Foundation import *
 from AppKit import *
 
 from stats import Statistics
-from common.formatter_helpers import secToTimeStr, nsDateToDatetime
+from common.formatter_helpers import (secToTimeStr, nsDateToDatetime,
+        datetimeToNSDate)
 from tasks import Timings
 
 
@@ -58,12 +59,16 @@ class ReportsController(NSWindowController):
         self.graphView.setConversionFunction(secToTimeStr)
         self.generateChart()
 
-
     def setDate(self, date):
         self.startDate = date
         self.endDate = Timings.workStartDateTime() + datetime.timedelta(days=1)
 
+    def updateCustomDatePicker(self):
+        self.dpkrTo.setDateValue_(datetimeToNSDate(self.startDate))
+        self.dpkrFrom.setDateValue_(datetimeToNSDate(self.endDate))
+
     def updateState(self):
+        self.updateCustomDatePicker()
         self.setCustomControlsEnabled(False)
         self.generateChart()
 
